@@ -1,0 +1,25 @@
+h1{
+  display: flex;
+  justify-content: center;
+}
+.title {
+  display: flex;
+  justify-content: center;
+}
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.addUser {
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.stuff2Edit {
+  margin-left: 300px;
+
+}
