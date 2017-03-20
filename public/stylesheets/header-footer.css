@@ -1,0 +1,6 @@
+/*main nav*/
+nav.main-nav, footer.page-footer, .container, .links, .footer-link, a.brand-logo  {
+  background: hsla(229, 19%, 22%, 1);
+  color: hsla(138, 54%, 78%, 1);
+
+}
