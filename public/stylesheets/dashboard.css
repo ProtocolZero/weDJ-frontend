@@ -1,0 +1,35 @@
+body {
+  background: url('./gplaypattern_@2X.png');
+}
+nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.brand-logo  {
+  background: hsla(229, 19%, 22%, 1);
+  color: hsla(138, 54%, 78%, 1);
+}
+.brand-logo:hover {
+  color:hsla(55, 93%, 84%, 1)
+}
+.dash-header {
+  padding: 20px;
+}
+.btn-floating {
+  background-color: hsla(335, 71%, 64%, 1);
+}
+
+.card-image-dc {
+  height: 400px;
+  margin: 20px;;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  position: relative;
+}
+.card-image-dc img {
+  width: 100%;
+  object-fit: cover;
+  height: 400px;
+}
+.plist {
+  color: hsla(229, 19%, 22%, 1);
+}
+.plist:hover {
+  color: hsla(335, 71%, 64%, 1);
+}
