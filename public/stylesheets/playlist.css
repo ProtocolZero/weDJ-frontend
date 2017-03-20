@@ -1,0 +1,15 @@
+.playinginfo {
+  float:
+}
+.albumcover {
+  width: 30%;
+  height: 30%;
+  float:left;
+}
+.addsong {
+  float: right;
+  margin: 50px;
+}
+.table {
+  width: 100%; 
+}
