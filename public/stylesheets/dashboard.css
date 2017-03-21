@@ -1,6 +1,14 @@
 body {
   background: url('./gplaypattern_@2X.png');
+  animation: animatedBackground 30s linear infinite;
+  letter-spacing: 5px;
 }
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+
 nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.brand-logo  {
   background: hsla(229, 19%, 22%, 1);
   color: hsla(138, 54%, 78%, 1);
@@ -32,4 +40,7 @@ nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.bra
 }
 .plist:hover {
   color: hsla(335, 71%, 64%, 1);
+}
+input#search {
+  border-radius: 25px;
 }

@@ -1,0 +1,12 @@
+$darkPurple: hsla(229%, 19%, 22%, 1);
+$mintGreen: hsla(138%, 54%, 78%, 1);
+$yellow: hsla(55%, 93%, 84%, 1);
+$pink: hsla(335%, 71%, 64%, 1);
+$grey: hsla(16%, 31%, 85%, 1);
+
+
+
+nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.brand-logo {
+  background: $darkPurple;
+  color: $mintGreen;
+}

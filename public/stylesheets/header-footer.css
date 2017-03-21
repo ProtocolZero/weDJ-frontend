@@ -1,4 +1,7 @@
-nav.main-nav, footer.page-footer, .container, .links, .footer-link, a.brand-logo  {
+nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.brand-logo  {
   background: hsla(229, 19%, 22%, 1);
   color: hsla(138, 54%, 78%, 1);
+}
+a.brand-logo {
+  padding-left: 20px;
 }
