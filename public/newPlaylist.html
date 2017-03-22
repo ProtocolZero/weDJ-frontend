@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="stylesheets/newPlaylist.css">
     <link href="./stylesheets/header-footer.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -28,20 +29,20 @@
                   <h1>NEW Playlist</h1>
                     <div class="title input-field">
                         <label for="playlist">Name of Playlist</label>
-                        <input id="playlist" type="text" name="" value="">
+                        <input id="playlist" class="playlist" type="text" name="" value="">
                     </div>
                     <article class="stuff2Edit">
                         <img src="http://placehold.it/150x150">
                         <div class="addUserArea">
-                            <button class="btn-floating" type="button" name="button">&#43;</button>
+                            <button class="btn-floating addsong" type="button" name="button">&#43;</button>
                             <input class="myInput" type="text" name="" value="">
-                            <button class="btn" type="button" name="button">search</button>
+                            <button class="btn search" type="button" name="button">search</button>
                         </div>
-                    </article>
-                <!-- </section> -->
+                    </article> 
+                <!--<!-- </section> -->
                 <section class="buttons section">
-                    <button class="btn" type="button" name="button">Cancel</button>
-                    <button class="btn" type="button" name="button">Save</button>
+                    <button class="btn cancel" type="button" name="button">Cancel</button>
+                    <button class="btn save" type="button" name="button">Save</button>
                 </section>
               </form>
 
@@ -73,9 +74,10 @@
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-    <script src="./scripts/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous" charset="utf-8" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js" charset="utf-8" ></script>
+    
+    <script type="text/javascript" src="./scripts/newplaylist.js" charset="utf-8" ></script>
 </body>
 
 </html>
