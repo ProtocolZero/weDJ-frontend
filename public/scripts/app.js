@@ -1,14 +1,14 @@
 window.addEventListener('load', function() {
 
 
-    var lock = new Auth0Lock('YHNpBmBSUUxDTNW4dhJLQ4g4DnBxXCpp', 'shep222.auth0.com', {
+    var lock = new Auth0Lock('7rC5bCOIFS04j08SeFAygi7fvdCGoeK9', 'shep222.auth0.com', {
       container: 'root',
       auth: {
-        redirectUrl: 'https://wedj-youtube.firebaseapp.com/dashboard.html',
+        redirectUrl: 'http://localhost:5000/dashboard.html',
         responseType: 'code',
-        // params: {
-        //   scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
-        // }
+        params: {
+          scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+        }
       }
     });
     lock.show();
