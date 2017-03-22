@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
   <link href="./stylesheets/dashboard.css" rel="stylesheet">
   <link href="./stylesheets/header-footer.css" rel="stylesheet">
 </head>
@@ -14,7 +15,6 @@
       <nav class="main-nav">
         <div class="nav-wrapper">
           <a href="#!" class="brand-logo">WeDJ</a>
-
       </nav>
     </div>
     <div class="container dashboard">
@@ -23,65 +23,31 @@
           <h4 class="dash-header">New User's playlists</h3>
         </div>
         <div class="col l3 m4 s5">
-          <a class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light" href="./newPlaylist.html"><i class="material-icons">add</i></a>
         </div>
       </div>
       <div class="row">
-        <div class="col l6 m8 s5">
-          <form class="search-song col l10 m8 s5" method="post">
+        <div class="col l6 m8 s12">
+          <form class="search-song col l10 m8 s12" method="post">
             <div class="input-field">
-              <input id="search" placeholder="Search for user" type="search" required>
+              <input id="search-playlist" placeholder="Search for playlist by name" type="search" required>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons go">play_arrow</i>
+              <i class="material-icons go-playlist">play_arrow</i>
             </div>
           </form>
         </div>
-        <div class="col l6 m8 s5">
-          <form class="search-song col l10 m8 s5" method="post">
+        <div class="col l6 m8 s12">
+          <form class="search-song col l10 m8 s12" method="post">
             <div class="input-field">
-              <input id="search" placeholder="Search for playlist" type="search" required>
+              <input id="search-user" placeholder="Search for playlist by name" type="search" required>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons go">play_arrow</i>
+              <i class="material-icons go-user">play_arrow</i>
             </div>
           </form>
         </div>
       </div>
-      <div class="row section s12">
-          <div class="col l6 m12 s12">
-            <div>
-              <div class="card-image-dc">
-                <img src="./stylesheets/party.jpg">
-                <span><a class="plist" href="#">Saturday night playlist</a></span>
-                <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col l6 m12 s12">
-            <div>
-              <div class="card-image-dc">
-                <img src="./stylesheets/party.jpg">
-                <span><a class="plist" href="#">Saturday night playlist</a></span>
-                <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col l6 m12 s12">
-            <div>
-              <div class="card-image-dc">
-                <img src="./stylesheets/party.jpg">
-                <span><a class="plist" href="#">Saturday night playlist</a></span>
-                <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col l6 m12 s12">
-            <div>
-              <div class="card-image-dc">
-                <img src="./stylesheets/party.jpg">
-                <span><a class="plist" href="#">Saturday night playlist</a></span>
-                <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">add</i></a>
-              </div>
-            </div>
+      <div class="row">
+          <div class="col s12 playlist-area">
           </div>
       </div>
     </div>
