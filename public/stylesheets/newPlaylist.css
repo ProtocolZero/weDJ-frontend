@@ -9,6 +9,8 @@ body {
 	from { background-position: 0 0; }
 	to { background-position: 100% 0; }
 }
+
+
 .addUserArea, .removeUserArea {
   display: flex;
   justify-content: center;
