@@ -13,6 +13,9 @@ body {
   margin: 40px 0 40px 0;
 }
 
+a.brand-logo:hover {
+  color:hsla(55, 93%, 84%, 1)
+}
 .col.song {
   height: 300px;
   border-radius: 2px;
