@@ -43,8 +43,6 @@ function newPlay() {
         }
 
         $.get(`${path}song`).then(function (result) {
-            console.log(result)
-            console.log(recentAppened)
             var songOrder = recentAppened;
             var last = result.length - recentAppened;
             for (var i = result.length; i > last; i--) {
@@ -58,9 +56,12 @@ function newPlay() {
 
                 $.get(`${path}playlist`).then(function (plist) {
                     var i = plist.length;
-                    i -- ;
+                    i -- ; // chenk 
                     var playID = plist[i].id;
-                    //console.log(playID)
+                    console.log(playID + "playlist id")
+                    console.log(songID + "song id")
+                    console.log(plist[i])
+                    songID ++; 
                     $.post(`${path}playlist_song`, {
                         p_id: playID,
                         s_id: songID,
@@ -121,11 +122,9 @@ $(function () {
     console.log("document.ready working"); 
      
     function profileInfo(){
-
             var user = localStorage.getItem('profile')
             var profile = JSON.parse(user)
-            email = profile.email
-                        
+            email = profile.email                       
     }
     profileInfo()
     newPlay();
