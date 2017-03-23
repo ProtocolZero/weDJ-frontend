@@ -1,6 +1,6 @@
 const url = "https://www.googleapis.com/youtube/v3/search?q="
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
-$('.go').click((e) => {
+//$('.go').click((e) => {
   e.preventDefault()
   let searchItem = $('#search').val()
   console.log(searchItem);

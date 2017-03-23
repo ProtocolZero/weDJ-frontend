@@ -1,29 +1,14 @@
-/*h1{
-  display: flex;
-  justify-content: center;
-}
-.title {
-  display: flex;
-  justify-content: center;
-  width: 300px;
-}
-.main {
-  display: flex;
-  justify-content: center;
+body {
+  background: url('./gplaypattern_@2X.png');
+  animation: animatedBackground 30s linear infinite;
+  letter-spacing: 5px;
+  font-family: 'Gloria Hallelujah', cursive;
 }
 
-.addUser {
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
 }
-
-.buttons {
-  display: flex;
-  justify-content: center;
-}
-
-.stuff2Edit {
-  margin-left: 300px;
-
-}*/
 .addUserArea, .removeUserArea {
   display: flex;
   justify-content: center;
