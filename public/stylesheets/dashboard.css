@@ -23,7 +23,6 @@ nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.bra
 .btn-floating {
   background-color: hsla(335, 71%, 64%, 1);
   margin: 30px;
-  
 }
 
 .col.card-image-dc {
@@ -47,4 +46,7 @@ a:hover {
 }
 input#search-user, #search-playlist {
   border-radius: 25px;
+}
+.go-playlist, .go-user {
+  margin-top: 7px;
 }

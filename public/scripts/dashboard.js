@@ -7,11 +7,15 @@ $().ready(() => {
 
   function showPlaylists(playlists) {
     playlists.forEach(playlist => {
-      plistArr.push(playlist.title)
+      var playlistObj = {
+        title: playlist.title,
+        id: playlist.id
+      }
+      plistArr.push(playlist)
       $('.playlist-area').append(
-        `<div class="col l6 m6 s12 card-image-dc ${playlist.title}">
-            <img class="album-image" id="${playlist.id}" src="./stylesheets/party.jpg">
-            <span><a class="plist-name-${playlist.id}" href="${url}/playlist/${playlist.id}">${playlist.title}</a></span>
+        `<div class="col l6 m6 s12 card-image-dc ${playlist.id}">
+            <a href="#" id=atag${playlist.id}""><img class="album-image" id="${playlist.id}" src="./stylesheets/party.jpg">
+            <span><a class="plist-name-${playlist.id}" href="./playlist.html?id=${playlist.id}">${playlist.title}</a></span>
             <p>Role: ${playlist.role}</p>
             <a class="btn-floating edit halfway-fab waves-effect waves-light"><i class="material-icons">edit</i></a>
             `)
@@ -34,18 +38,22 @@ $().ready(() => {
 
   function appendImage(song, id) {
     const imgUrl = song.album_img
+    const plistUrl = `./editPlaylist.html?id=${id}`
     $(`#${id}`).attr('src', imgUrl)
+    $(`#atag${id}`).attr("href", plistUrl)
   }
 
   function searchPlaylists() {
-    $('.go-playlist').click((e) => {
-      e.preventDefault()
+    $('.go-playlist').click(() => {
       let searchStr = $('#search-playlist').val()
-      if(!plistArr.includes(searchStr)) {
-        console.log("Hello");
-        $('.car-image-dc.playlist-title').hide()
-      } else {
-        console.log("Hi");
+      if(searchStr) {
+        var results = null;
+        plistArr.forEach(playlistObj => {
+          playlistObj.title === searchStr ? ($(`.${playlistObj.id}`).fadeIn(),  results = true): $(`.${playlistObj.id}`).hide()
+        })
+        if(!results) {
+          $('.playlist-area').append("<p>No playlist found</p>")
+        }
       }
     })
   }
