@@ -37,7 +37,7 @@ $().ready(() => {
           let firstSongId = songs[0].s_id
           $.get(`${url}/song/${firstSongId}`)
             .then(song => {
-                 appendImage(song[0], playlist.id)
+                 appendImage(song, playlist.id)
             })
         })
       $.get(`${url}/role/playlist/${playlist.id}`)

@@ -35,3 +35,7 @@ body {
 .table {
   width: 100%;
 }
+td.songname:hover {
+  color: hsla(335, 71%, 64%, 1);
+  font-size: 1.5em;
+}

@@ -14,6 +14,7 @@
       <nav class="main-nav">
         <div class="nav-wrapper">
           <a href="./dashboard.html" class="brand-logo">WeDJ</a>
+          <a id="btn-logout" class="waves-effect waves-light right logout">Log out</a>
         </div>
       </nav>
     </div>
@@ -30,25 +31,13 @@
         </div>
       </div>
       <div class="highlight">
-  <table class="highlight">
-    <tbody class="upnext" >
-      <tr class="songinfo" >
-        <td class="songname" >
-          Songname
-        </td>
-        <td class="artist" >
-          Artist
-        </td>
-        <td class="album" >
-          Album
-        </td>
-        <td>
-          <button class="btn waves-effect waves-light">Like</button>
-        </td>
-        <td>
-          <button class="btn waves-effect waves-light">Dislike</button>
-        </td>
+  <table>
+    <thead>
+      <tr>
+          <th>Your playlist</th>
       </tr>
+    </thead>
+    <tbody class="songinfo">
     </tbody>
   </table>
 </div>
@@ -81,6 +70,8 @@
     integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="./scripts/logout.js"></script>
+
     <script src="./scripts/playlist.js"></script>
   </body>
 </html>

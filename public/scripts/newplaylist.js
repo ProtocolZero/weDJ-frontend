@@ -16,14 +16,12 @@ function newPlay() {
                     var last = data.length
                     last --; 
                     console.log(data[last].id)
-
-                     
-                        
-                    $.post(`${path}roles`,{
+                    $.post(`${path}role`,{
                         role: "owner",
                         u_id: email,
                         p_id: data[last].id
-                    }).then(function(data) {
+                    })
+                    .then(function(data) {
                         console.log(data)
                     })
                 })
@@ -121,15 +119,15 @@ function searchSong() {
 
 $(function () {
     console.log("document.ready working"); 
-    let email = "" 
+     
     function profileInfo(){
-        var token = localStorage.getItem('access_token')
-                        var user = localStorage.getItem('profile')
-                        var profile = JSON.parse(user)
-                        console.log(user)
-                         email = profile.email
-                        console.log(email)
+
+            var user = localStorage.getItem('profile')
+            var profile = JSON.parse(user)
+            email = profile.email
+                        
     }
     profileInfo()
     newPlay();
 })
+
