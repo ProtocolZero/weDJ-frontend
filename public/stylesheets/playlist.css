@@ -9,17 +9,27 @@ body {
 	from { background-position: 0 0; }
 	to { background-position: 100% 0; }
 }
-.playinginfo {
-  float:
+.current-song {
+  margin: 40px 0 40px 0;
 }
-.albumcover {
-  width: 30%;
-  height: 30%;
-  float:left;
+
+.col.song {
+  height: 300px;
+  border-radius: 2px;
+  position: relative;
+  margin-right: 20px;
 }
-.addsong {
+.img-current {
+  width: 100%;
+  object-fit: cover;
+  height: 270px;
+}
+.col.details-current {
+  padding-top: 110px;
+}
+.add-song {
   float: right;
-  margin: 50px;
+  margin: 20px;
 }
 .table {
   width: 100%;

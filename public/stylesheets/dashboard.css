@@ -50,3 +50,6 @@ input#search-user, #search-playlist {
 .go-playlist, .go-user {
   margin-top: 7px;
 }
+img:hover {
+  opacity: 0.5;
+}
