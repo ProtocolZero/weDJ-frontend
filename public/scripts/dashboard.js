@@ -15,7 +15,8 @@ $().ready(() => {
   }
 
   profileInfo()
-  $('.dash-header').html(userName)
+
+  $('.dash-header').html(`${userName}'s playlists`)
 
   function showPlaylists(playlists) {
     playlists.forEach(playlist => {

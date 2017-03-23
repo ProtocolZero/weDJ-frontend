@@ -24,7 +24,9 @@ nav.main-nav, footer.page-footer, .container-footer, .links, .footer-link, a.bra
   background-color: hsla(335, 71%, 64%, 1);
   margin: 30px;
 }
-
+.logout {
+  color: hsla(138, 54%, 78%, 1);
+}
 .col.card-image-dc {
   height: 400px;
   margin-bottom: 40px;
@@ -50,6 +52,7 @@ input#search-user, #search-playlist {
 .go-playlist, .go-user {
   margin-top: 7px;
 }
+
 img:hover {
   opacity: 0.5;
 }
