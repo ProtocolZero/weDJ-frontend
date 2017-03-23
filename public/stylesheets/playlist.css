@@ -19,6 +19,7 @@ body {
   position: relative;
   margin-right: 20px;
 }
+
 .img-current {
   width: 100%;
   object-fit: cover;
