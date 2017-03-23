@@ -5,7 +5,10 @@ body {
   letter-spacing: 5px;
   font-family: 'Gloria Hallelujah', cursive;
 }
-
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
 
 
 .login-form {
