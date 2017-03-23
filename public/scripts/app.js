@@ -15,9 +15,6 @@ window.addEventListener('load', function() {
 
 
     // buttons
-    var btn_login = document.getElementById('btn-login');
-    var btn_logout = document.getElementById('btn-logout');
-
     // btn_login.addEventListener('click', function() {
     //     lock.show();
     // });
