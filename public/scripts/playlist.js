@@ -4,9 +4,19 @@ $().ready(() => {
  const pId = urlArr[1]
  const url = "https://wedj.herokuapp.com"
  function addSongs(song) {
-     $('songname').html(song.name)
-     $('.artist').html(song.artist_name)
-     $('.album').html(song.album_name)
+     $('.songinfo').append(
+      `<tr>
+         <td class="songname">
+          ${song.name}
+         </td>
+         <td>
+           <button class="btn waves-effect waves-light">Like</button>
+         </td>
+         <td>
+           <button class="btn waves-effect waves-light">Dislike</button>
+         </td>
+       </tr>`
+     )
  }
 
   $.get(`${url}/playlist_song/playlist/${pId}`)
