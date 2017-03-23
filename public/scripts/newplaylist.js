@@ -71,7 +71,9 @@ function addSong(songData) {
     $('.addsong').click((e) => {
         console.log("addSong clicked")
         console.log(songData)
-        // push song data to an array might not need the .push
+        //$('.songinfo').empty(); 
+        $('.songname').append(`<tr><td>${songData.title}</td></tr>`)
+        // $('.artist').appened(songData.)
         playlistData.push(songData)
     })
 }
@@ -91,9 +93,11 @@ function searchSong() {
                     title: videoResult.snippet.title,
                     image: videoResult.snippet.thumbnails.medium.url
                 }
-                addSong(video)
-            })
+                    do{$('.songname').empty();}
+                    while(false)
 
+                    addSong(video)
+            })
     })
 }
 // post to songs 
@@ -102,5 +106,6 @@ function searchSong() {
 
 $(function () {
     console.log("document.ready working")
+    console.log("Hey were updating")
     newPlay();
 })
