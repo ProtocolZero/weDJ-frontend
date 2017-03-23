@@ -1,6 +1,12 @@
 /* HSL */
 body {
-  background: #2d3143; }
+  background: url('./gplaypattern_@2X.png');
+  animation: animatedBackground 30s linear infinite;
+  letter-spacing: 5px;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+
 
 .login-form {
   border-radius: 10px;
