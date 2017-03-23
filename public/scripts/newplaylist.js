@@ -11,13 +11,29 @@ function newPlay() {
         })
             .then(function (data) {
                 console.log(data)
+                $.get(`${path}playlist`)
+                .then(function(data){
+                    var last = data.length
+                    last --; 
+                    console.log(data[last].id)
+
+                     
+                        
+                    $.post(`${path}roles`,{
+                        role: "owner",
+                        u_id: email,
+                        p_id: data[last].id
+                    }).then(function(data) {
+                        console.log(data)
+                    })
+                })
             })
         // save search info in a variable then post 
         // loop post until all songs are posted 
         var recentAppened = playlistData.length;
         console.log(playlistData)
         for (var i = 0; i < playlistData.length; i++) {
-            console.log(playlistData[i])
+            //console.log(playlistData[i])
             $.post(`${path}song`, {
                 name: playlistData[i].title,
                 album_img: playlistData[i].image,
@@ -37,17 +53,16 @@ function newPlay() {
                 do {
                     i--;
                 } while (false) { }
-
-                console.log(i)
-                console.log('inside for loop')
+                //console.log(i)
+                //console.log('inside for loop')
                 var songID = result[i].id;
-                console.log(songID)
+                //console.log(songID)
 
                 $.get(`${path}playlist`).then(function (plist) {
                     var i = plist.length;
                     i -- ;
                     var playID = plist[i].id;
-                    console.log(playID)
+                    //console.log(playID)
                     $.post(`${path}playlist_song`, {
                         p_id: playID,
                         s_id: songID,
@@ -69,8 +84,8 @@ function newPlay() {
 
 function addSong(songData) {
     $('.addsong').click((e) => {
-        console.log("addSong clicked")
-        console.log(songData)
+        //console.log("addSong clicked")
+        //console.log(songData)
         //$('.songinfo').empty(); 
         $('.songname').append(`<tr><td>${songData.title}</td></tr>`)
         // $('.artist').appened(songData.)
@@ -82,7 +97,7 @@ function searchSong() {
     $('.search').click((e) => {
         console.log('search button clicked');
         let searchItem = $('.myInput').val()
-        console.log(searchItem)
+        //console.log(searchItem)
         const url = "https://www.googleapis.com/youtube/v3/search?q="
         const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
         $.get(`${url}${searchItem}${setQuery}`)
@@ -105,7 +120,16 @@ function searchSong() {
 // if not send git request to youtube 
 
 $(function () {
-    console.log("document.ready working")
-    console.log("Hey were updating")
+    console.log("document.ready working"); 
+    let email = "" 
+    function profileInfo(){
+        var token = localStorage.getItem('access_token')
+                        var user = localStorage.getItem('profile')
+                        var profile = JSON.parse(user)
+                        console.log(user)
+                         email = profile.email
+                        console.log(email)
+    }
+    profileInfo()
     newPlay();
 })
