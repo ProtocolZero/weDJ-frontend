@@ -32,6 +32,7 @@ $().ready(() => {
       `<tr>
          <td class="songname">
           ${song.name}
+          <button class="change-song" value="${song.URL}">Next</button>
          </td>
          <td>
            <button class="btn waves-effect waves-light">Like</button>
@@ -43,6 +44,9 @@ $().ready(() => {
      )
  }
 
+ $(document).on('click', '.change-song', (e) => {
+   $('#player').attr('src', `${YTurl}${e.target.value}`)
+ });
 
   $.get(`${url}/playlist_song/playlist/${pId}`)
     .then(songs => {

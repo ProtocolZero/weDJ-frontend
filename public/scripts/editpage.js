@@ -142,12 +142,10 @@ $(() => {
         });
     });
 
-    // TODO: Need to delete role by roleID
     // Remove collaborator
     $(document).on('click', '.removerole', (e) => {
       e.preventDefault();
       const roleId = $(e.target).parent().val();
-      console.log(roleId);
       $.ajax({
         url: `${path}/role/${roleId}`,
         method: 'DELETE',
@@ -182,21 +180,4 @@ $(() => {
         </tr>`
       );
     }
-
-
 });
-
-//$('.go').click((e) => {
-//   e.preventDefault()
-//   let searchItem = $('#search').val()
-//   console.log(searchItem);
-//   $.get(`${url}${searchItem}${setQuery}`)
-//     .then(results => {
-//       const videoResult = results.items[0]
-//       const video = {
-//         id: videoResult.id.videoId,
-//         title: videoResult.snippet.title,
-//         image: videoResult.snippet.thumbnails.medium.url
-//       }
-//     })
-// })
