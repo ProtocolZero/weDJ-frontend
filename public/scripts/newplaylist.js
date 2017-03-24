@@ -58,8 +58,8 @@ function newPlay() {
                     var i = plist.length;
                     i -- ; // chenk
                     var playID = plist[i].id;
-                    console.log(playID + "playlist id")
-                    console.log(songID + "song id")
+                    console.log(playID + " playlist id")
+                    console.log(songID + " song id")
                     console.log(plist[i])
                     songID ++;
                     $.post(`${path}playlist_song`, {
