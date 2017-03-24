@@ -26,12 +26,16 @@ $().ready(() => {
  const url = "https://wedj.herokuapp.com"
  const YTurl = "https://www.youtube.com/embed/"
 
+ function changeSong(url) {
+   $('#player').attr('src', `${YTurl}url`)
+ }
 
  function addSongs(song) {
      $('.songinfo').append(
       `<tr>
          <td class="songname">
           ${song.name}
+          <button class="btn waves-effect waves-light change-song right" value="${song.URL}">Next</button>
          </td>
          <td>
            <button class="btn waves-effect waves-light">Like</button>
@@ -42,7 +46,9 @@ $().ready(() => {
        </tr>`
      )
  }
-
+$(document).on('click', '.change-song', (e) => {
+  $('#player').attr('src', `${YTurl}${e.target.value}`)
+})
 
   $.get(`${url}/playlist_song/playlist/${pId}`)
     .then(songs => {
