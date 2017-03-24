@@ -93,16 +93,22 @@ function addSong(songData) {
     })
 }
 
+// Add song to playlist
 $(document).on('click', '.addsong', (e) => {
   const $songData = $(e.target).parents('.search-result-item');
   const playlistItem = {
     id: $songData.find('.addsong').val(),
-    title: $songData.find('.video-title').text(),
-    image: $songData.find('.video-img').attr('src')
+    name: $songData.find('.video-title').text(),
+    album_img: $songData.find('.video-img').attr('src')
   }
   playlistData.push(playlistItem);
   createPlaylistItem(playlistItem);
   $('.search-results').empty();
+});
+
+// Remove song from playlist
+$(document).on('click', '.removesong', (e) => {
+  $(e.target).parents('.playlist-item').remove();
 });
 
 function searchSong() {
@@ -119,8 +125,8 @@ function searchSong() {
                 // Create list of results for user to add to playlist
                 const videoResult = {
                   id: result.id.videoId,
-                  title: result.snippet.title,
-                  image: result.snippet.thumbnails.medium.url
+                  name: result.snippet.title,
+                  album_img: result.snippet.thumbnails.medium.url
                 }
                 createSearchResultItem(videoResult);
               });
@@ -135,8 +141,8 @@ function createSearchResultItem(resultObj) {
   $('.search-results').append(
     `<tr class="search-result-item">
       <td>
-        <img class="video-img" src="${resultObj.image}" alt="search-result-thumbnail">
-        <p class="video-title">${resultObj.title}</p>
+        <img class="video-img" src="${resultObj.album_img}" alt="search-result-thumbnail">
+        <p class="video-title">${resultObj.name}</p>
       </td>
       <td><button class="btn-floating waves-effect waves-light addsong" type="button" name="add-button" value="${resultObj.id}">&#43;</button></td>
     </tr>`
@@ -147,8 +153,11 @@ function createPlaylistItem(resultObj) {
   $('.playlist-items').append(
     `<tr class="playlist-item">
       <td>
-        <img class="video-img" src="${resultObj.image}" alt="search-result-thumbnail">
-        <p class="video-title">${resultObj.title}</p>
+        <img class="video-img" src="${resultObj.album_img}" alt="search-result-thumbnail">
+        <p class="video-title">${resultObj.name}</p>
+      </td>
+      <td>
+        <button class="btn btn-floating waves-effect waves-light red removesong" value="${resultObj.id}"><i class="material-icons">remove</i></button>
       </td>
     </tr>`
   );

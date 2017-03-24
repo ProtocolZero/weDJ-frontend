@@ -26,7 +26,8 @@
             <div class="row">
               <section class="section">
 
-                <form class="center col s12 m6 offset-m3" action="index.html" method="post">
+                <form class="center col s12 m6" action="index.html" method="post">
+                   <a href="./dashboard.html" class="left">< Back to Dashboard</a>
                   <h1>NEW Playlist</h1>
                     <div class="title input-field">
                         <label for="playlist">Name of Playlist</label>
@@ -45,39 +46,34 @@
                     <button class="btn cancel" type="button" name="button" onClick="window.location.reload()">Cancel</button>
                     <button class="btn save" type="button" name="button" >Save</button>
                 </section>
+
+                <!-- Search Results Table -->
+                <table class="highlight col s12">
+                   <thead>
+                      <th colspan="3">Results</th>
+                   </thead>
+                   <tbody class="search-results">
+                      <!-- <tr class="songinfo">
+                        <td class="songname">
+                        </td>
+                     </tr> -->
+                  </tbody>
+               </table>
               </form>
 
+              <!-- To Be Added To Playlist -->
+              <table class="highlight col s12 m6">
+                 <thead>
+                    <th>Playlist</th>
+                 </thead>
+                 <tbody class="playlist-items">
+
+                 </tbody>
+              </table>
             </section>
 
             </div>
         </div>
-        <div class="container">
-           <div class="row">
-
-             <!-- Search Results Table -->
-             <table class="highlight col s12 m6">
-                <thead>
-                   <th colspan="3">Results</th>
-                </thead>
-                <tbody class="search-results">
-                   <tr class="songinfo">
-                      <td class="songname">
-                     </td>
-                  </tr>
-               </tbody>
-            </table>
-
-            <!-- To Be Added To Playlist -->
-            <table class="highlight col s12 m6">
-               <thead>
-                  <th colspan="3">Playlist</th>
-               </thead>
-               <tbody class="playlist-items">
-
-               </tbody>
-            </table>
-         </div>
-      </div>
     </main>
     <footer class="page-footer">
         <div class="container">
