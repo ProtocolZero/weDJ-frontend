@@ -38,7 +38,7 @@ $().ready(() => {
           <button class="btn waves-effect waves-light change-song right" value="${song.URL}">Play</button>
          </td>
          <td>
-           <button class="btn waves-effect waves-light"><i class="material-icons">thumb_up</i>/button>
+           <button class="btn waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
          </td>
          <td>
            <button class="btn waves-effect waves-light"><i class="material-icons">thumb_down</i></button>
