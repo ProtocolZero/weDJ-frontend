@@ -35,11 +35,7 @@ $().ready(() => {
       `<tr>
          <td class="songname">
           ${song.name}
-<<<<<<< HEAD
-          <button class="change-song" value="${song.URL}">Next</button>
-=======
           <button class="btn waves-effect waves-light change-song right" value="${song.URL}">Play</button>
->>>>>>> 8b676c466e467c94cc69e31e43a849b58b3cf6a9
          </td>
          <td>
            <button class="btn waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
@@ -50,16 +46,10 @@ $().ready(() => {
        </tr>`
      )
  }
-<<<<<<< HEAD
 
- $(document).on('click', '.change-song', (e) => {
-   $('#player').attr('src', `${YTurl}${e.target.value}`)
- });
-=======
 $(document).on('click', '.change-song', (e) => {
   $('#player').attr('src', `${YTurl}${e.target.value}`)
 })
->>>>>>> 8b676c466e467c94cc69e31e43a849b58b3cf6a9
 
   $.get(`${url}/playlist_song/playlist/${pId}`)
     .then(songs => {
