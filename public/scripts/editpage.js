@@ -148,10 +148,13 @@ $(() => {
       e.preventDefault();
       const roleId = $(e.target).parent().val();
       console.log(roleId);
-      // $.ajax({
-      //   url: `${path}/role/${roleId}`,
-      //   method: 'DELETE',
-      // })
+      $.ajax({
+        url: `${path}/role/${roleId}`,
+        method: 'DELETE',
+      })
+      .then(() => {
+        window.location.reload();
+      });
     });
 
     function createPlaylistItem(resultObj) {
