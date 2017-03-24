@@ -1,3 +1,9 @@
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 var player;
 var onYouTubeIframeAPIReady
 var playerReady = new Promise((resolve, reject) => {
@@ -38,8 +44,6 @@ $().ready(() => {
  }
 
 
-
-
   $.get(`${url}/playlist_song/playlist/${pId}`)
     .then(songs => {
       var firstSong = null
@@ -51,9 +55,9 @@ $().ready(() => {
               firstSong = song.URL
               $('#player').attr('src', `${YTurl}${firstSong}`)
             } else {
-              playerReady.then(() => {
+              playerReady.then((player) => {
                 console.log("Hello");
-                player.cueVideoById({videoId: `${YTurl}${song.URL}`})
+                player.cueVideoById({videoId: `${song.URL}`})
               })
             }
           })
