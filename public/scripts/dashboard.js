@@ -30,7 +30,7 @@ $().ready(() => {
             <a href="./playlist.html?id=${playlist.id}"><img class="album-image" id="${playlist.id}" src="./stylesheets/party.jpg">
             <span><a class="plist-name-${playlist.id}" href="./playlist.html?id=${playlist.id}">${playlist.title}</a></span>
             <p>Role: ${playlist.role}</p>
-            <a class="btn-floating edit halfway-fab waves-effect waves-light"><i class="material-icons">edit</i></a>
+            <a href="./editPlaylist.html?id=${playlist.id}" class="btn-floating edit halfway-fab waves-effect waves-light"><i class="material-icons">edit</i></a>
             `)
       $.get(`${url}/playlist_song/playlist/${playlist.id}`)
         .then(songs => {

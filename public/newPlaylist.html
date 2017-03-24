@@ -26,37 +26,52 @@
             <div class="row">
               <section class="section">
 
-                <form class="center col s12 m6 offset-m3" action="index.html" method="post">
+                <form class="center col s12 m6" action="index.html" method="post">
+                   <a href="./dashboard.html" class="left">< Back to Dashboard</a>
                   <h1>NEW Playlist</h1>
                     <div class="title input-field">
                         <label for="playlist">Name of Playlist</label>
-                        <input id="playlist" class="playlist" type="text" name="" value="">
+                        <input id="playlist" class="playlist" type="text" name="playlist-name" value="">
                     </div>
                     <article class="stuff2Edit">
-                        <img src="http://placehold.it/150x150">
+                        <img src="http://placehold.it/150x150" alt="playlist-image">
+                        <h5>Search for Songs..</h5>
                         <div class="addUserArea">
-                            <button class="btn-floating addsong" type="button" name="button">&#43;</button>
+                            <button class="btn-floating addsong" type="button" name="add-button">&#43;</button>
                             <input class="myInput" type="text" name="" value="">
-                            <button class="btn search" type="button" name="button">search</button>
+                            <button class="btn search" type="button" name="search-button">search</button>
                         </div>
                     </article>
-                <!--<!-- </section> -->
                 <section class="buttons section">
                     <button class="btn cancel" type="button" name="button" onClick="window.location.reload()">Cancel</button>
                     <button class="btn save" type="button" name="button" >Save</button>
                 </section>
+
+                <!-- Search Results Table -->
+                <table class="highlight col s12">
+                   <thead>
+                      <th colspan="3">Results</th>
+                   </thead>
+                   <tbody class="search-results">
+                      <!-- <tr class="songinfo">
+                        <td class="songname">
+                        </td>
+                     </tr> -->
+                  </tbody>
+               </table>
               </form>
 
+              <!-- To Be Added To Playlist -->
+              <table class="highlight col s12 m6">
+                 <thead>
+                    <th>Playlist</th>
+                 </thead>
+                 <tbody class="playlist-items">
+
+                 </tbody>
+              </table>
             </section>
-            <table class="highlight">
-    <tbody class="upnext" >
-      <tr class="songinfo" >
-        <td class="songname" >
-        </td>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
             </div>
         </div>
     </main>

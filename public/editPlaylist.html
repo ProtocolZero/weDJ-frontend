@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="stylesheets/newPlaylist.css">
     <link href="./stylesheets/header-footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="./stylesheets/edit.css">
 <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 </head>
 
@@ -25,33 +26,65 @@
         <div class="container">
             <div class="row">
               <section class="section">
-
-                <form class="center col s12 m6 offset-m3" action="index.html" method="post">
+                <form class="center col s12 m6" action="index.html" method="post">
+                   <a href="./dashboard.html" class="left">< Back to Dashboard</a>
                   <h1>EDIT Playlist</h1>
                     <div class="title input-field">
-                        <label for="playlist">Name of Playlist</label>
-                        <input id="playlist" type="text" name="" value="">
+                       <label for="playlist">Name of Playlist</label>
+                        <input id="playlist" type="text" placeholder="">
+                    </div>
+                    <div class="collaborator-section">
+                       <h6>Collaborators:</h6>
+                       <ul class="collaborator-list">
+                          <li>
+                             <div class="input-field">
+                                <div class="col s10">
+                                   <label for="collaborator">Add collaborator</label>
+                                   <input id="collaborator" type="text" name="collaborator">
+                                </div>
+                             </div>
+                             <div class="col s2">
+                                <button class="btn-floating addcollaborator" type="button" name="add-collaborator"><i class="material-icons">add</i></button>
+                             </div>
+                          </li>
+                       </ul>
                     </div>
 
-                    <img src="http://placehold.it/150x150">
-                    <div class="removeUserArea">
+                    <section class="buttons section">
+                       <a href="./dashboard.html" class="btn">Cancel</a>
+                       <button id="save-playlist" class="btn" type="button" name="button">Save</button>
+                    </section>
+                    <!-- <div class="removeUserArea">
                       <button class="btn-floating" type="button" name="button">&#45;</button>
                       <input class="myInput" type="text" name="" value="">
-                    </div>
+                    </div> -->
                         <div class="addUserArea">
-                            <button class="btn-floating" type="button" name="button">&#43;</button>
-                            <input class="myInput" type="text" name="" value="">
+                            <input id="search-query" class="myInput" type="text" name="" value="">
+                            <button id="search-song" class="btn" type="button" name="button">search</button>
                         </div>
-                        <button class="btn" type="button" name="button">search</button>
 
-                <!-- </section> -->
-                <section class="buttons section">
-                    <button class="btn" type="button" name="button">Cancel</button>
-                    <button class="btn" type="button" name="button">Save</button>
-                </section>
+
+                <table class="col s12 highlight">
+                   <thead>
+                      <th>Results</th>
+                   </thead>
+                   <tbody class="search-results">
+
+                   </tbody>
+                </table>
               </form>
 
+              <!-- Playlist -->
+              <table class="col s12 m6 highlight">
+                 <thead>
+                    <th>Playlist</th>
+                 </thead>
+                 <tbody class="playlist-items">
+
+                 </tbody>
+              </table>
             </section>
+
             </div>
         </div>
     </main>
@@ -82,8 +115,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script src="./scripts/logout.js"></script>
-
-    <script src="./scripts/main.js"></script>
+    <script src="./scripts/editpage.js" charset="utf-8"></script>
 </body>
 
 </html>

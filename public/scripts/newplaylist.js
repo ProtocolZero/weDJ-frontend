@@ -3,31 +3,32 @@ const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBo
 var playlistData = []
 function newPlay() {
     searchSong();
+    // Save playlist
     $('.save').click((e) => {
         e.preventDefault()
-        console.log('save button clicked')
-        $.post(`${path}playlist`, {
-            name: $('.playlist').val()
-        })
-            .then(function (data) {
-                console.log(data)
-                $.get(`${path}playlist`)
-                .then(function(data){
-                    var last = data.length
-                    last --; 
-                    console.log(data[last].id)
-                    $.post(`${path}role`,{
-                        role: "owner",
-                        u_id: email,
-                        p_id: data[last].id
-                    })
-                    .then(function(data) {
-                        console.log(data)
-                    })
+        // Create new playlist item
+        $.post(`${path}playlist`, { name: $('.playlist').val() })
+          .then((data) => {
+            console.log(data)
+            // SHOULD RETURN THE NEW PLAYLIST ID WHEN POSTED
+            // WE CAN USE THIS TO POST TO THE ROLE TABLE AND PL_SONG TABLE
+            $.get(`${path}playlist`)
+              .then((data) => {
+                var last = data.length
+                last --;
+                console.log(data[last].id)
+                $.post(`${path}role`,{
+                    role: "owner",
+                    u_id: email,
+                    p_id: data[last].id
                 })
+                .then(function(data) {
+                    console.log(data)
+                })
+              })
             })
-        // save search info in a variable then post 
-        // loop post until all songs are posted 
+        // save search info in a variable then post
+        // loop post until all songs are posted
         var recentAppened = playlistData.length;
         console.log(playlistData)
         for (var i = 0; i < playlistData.length; i++) {
@@ -56,12 +57,12 @@ function newPlay() {
 
                 $.get(`${path}playlist`).then(function (plist) {
                     var i = plist.length;
-                    i -- ; // chenk 
+                    i -- ; // chenk
                     var playID = plist[i].id;
                     console.log(playID + "playlist id")
                     console.log(songID + "song id")
                     console.log(plist[i])
-                    songID ++; 
+                    songID ++;
                     $.post(`${path}playlist_song`, {
                         p_id: playID,
                         s_id: songID,
@@ -75,58 +76,101 @@ function newPlay() {
         })
     })
 }
-// send a post to playlist|  and maybe send a post to the playlistsong join 
-// btn same class for cancel and save button 
-//$('#playlist').val() = newplaylist name 
+// send a post to playlist|  and maybe send a post to the playlistsong join
+// btn same class for cancel and save button
+//$('#playlist').val() = newplaylist name
 
-// make new new play a function that gets passed the value of the playlist name 
+// make new new play a function that gets passed the value of the playlist name
 
 function addSong(songData) {
     $('.addsong').click((e) => {
         //console.log("addSong clicked")
         //console.log(songData)
-        //$('.songinfo').empty(); 
+        //$('.songinfo').empty();
         $('.songname').append(`<tr><td>${songData.title}</td></tr>`)
         // $('.artist').appened(songData.)
         playlistData.push(songData)
     })
 }
 
+// Add song to playlist
+$(document).on('click', '.addsong', (e) => {
+  const $songData = $(e.target).parents('.search-result-item');
+  const playlistItem = {
+    id: $songData.find('.addsong').val(),
+    name: $songData.find('.video-title').text(),
+    album_img: $songData.find('.video-img').attr('src')
+  }
+  playlistData.push(playlistItem);
+  createPlaylistItem(playlistItem);
+  $('.search-results').empty();
+});
+
+// Remove song from playlist
+$(document).on('click', '.removesong', (e) => {
+  $(e.target).parents('.playlist-item').remove();
+});
+
 function searchSong() {
     $('.search').click((e) => {
-        console.log('search button clicked');
+      // Remove previous search results
+      $('.search-results').empty();
         let searchItem = $('.myInput').val()
-        //console.log(searchItem)
         const url = "https://www.googleapis.com/youtube/v3/search?q="
         const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
         $.get(`${url}${searchItem}${setQuery}`)
             .then(results => {
-                const videoResult = results.items[0]
-                const video = {
-                    id: videoResult.id.videoId,
-                    title: videoResult.snippet.title,
-                    image: videoResult.snippet.thumbnails.medium.url
+              const searchResults = results.items;
+              searchResults.forEach((result) => {
+                // Create list of results for user to add to playlist
+                const videoResult = {
+                  id: result.id.videoId,
+                  name: result.snippet.title,
+                  album_img: result.snippet.thumbnails.medium.url
                 }
-                    do{$('.songname').empty();}
-                    while(false)
-
-                    addSong(video)
-            })
-    })
+                createSearchResultItem(videoResult);
+              });
+            });
+    });
 }
-// post to songs 
-// doees song already exist in database 
-// if not send git request to youtube 
+// post to songs
+// doees song already exist in database
+// if not send git request to youtube
+
+function createSearchResultItem(resultObj) {
+  $('.search-results').append(
+    `<tr class="search-result-item">
+      <td>
+        <img class="video-img" src="${resultObj.album_img}" alt="search-result-thumbnail">
+        <p class="video-title">${resultObj.name}</p>
+      </td>
+      <td><button class="btn-floating waves-effect waves-light addsong" type="button" name="add-button" value="${resultObj.id}">&#43;</button></td>
+    </tr>`
+  );
+}
+
+function createPlaylistItem(resultObj) {
+  $('.playlist-items').append(
+    `<tr class="playlist-item">
+      <td>
+        <img class="video-img" src="${resultObj.album_img}" alt="search-result-thumbnail">
+        <p class="video-title">${resultObj.name}</p>
+      </td>
+      <td>
+        <button class="btn btn-floating waves-effect waves-light red removesong" value="${resultObj.id}"><i class="material-icons">remove</i></button>
+      </td>
+    </tr>`
+  );
+}
 
 $(function () {
-    console.log("document.ready working"); 
-     
+    console.log("document.ready working");
+
     function profileInfo(){
             var user = localStorage.getItem('profile')
             var profile = JSON.parse(user)
-            email = profile.email                       
+            email = profile.email
     }
     profileInfo()
     newPlay();
 })
-
