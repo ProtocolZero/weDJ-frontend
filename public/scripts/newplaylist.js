@@ -9,33 +9,32 @@ function newPlay() {
         // Create new playlist item
         $.post(`${path}playlist`, { name: $('.playlist').val() })
           .then((data) => {
-            console.log(data)
+            // console.log(data)
             // SHOULD RETURN THE NEW PLAYLIST ID WHEN POSTED
             // WE CAN USE THIS TO POST TO THE ROLE TABLE AND PL_SONG TABLE
             $.get(`${path}playlist`)
               .then((data) => {
                 var last = data.length
                 last --;
-                console.log(data[last].id)
+                // console.log(data[last].id)
                 $.post(`${path}role`,{
                     role: "owner",
                     u_id: email,
                     p_id: data[last].id
                 })
                 .then(function(data) {
-                    console.log(data)
+                    // console.log(data)
                 })
               })
             })
         // save search info in a variable then post
         // loop post until all songs are posted
         var recentAppened = playlistData.length;
-        console.log(playlistData)
+        // console.log(playlistData)
         for (var i = 0; i < playlistData.length; i++) {
-            //console.log(playlistData[i])
             $.post(`${path}song`, {
-                name: playlistData[i].title,
-                album_img: playlistData[i].image,
+                name: playlistData[i].name,
+                album_img: playlistData[i].album_img,
                 URL: playlistData[i].id
             })
                 .then(function (data) {
@@ -73,6 +72,7 @@ function newPlay() {
                 })
                 songOrder--;
             }
+            alert('Playlist Saved!');
         })
     })
 }

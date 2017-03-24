@@ -40,5 +40,10 @@ a.brand-logo:hover {
 }
 td.songname:hover {
   color: hsla(335, 71%, 64%, 1);
-  font-size: 1.5em;
+}
+.change-song:hover {
+  color: hsla(335, 71%, 64%, 1);
+}
+table {
+  margin-top: 50px;
 }
