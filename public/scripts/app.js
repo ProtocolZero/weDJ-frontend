@@ -29,7 +29,6 @@ window.addEventListener('load', function() {
                 // Handle error
                 return;
             }
-
             localStorage.setItem('access_token', authResult.accessToken);
             localStorage.setItem('profile', JSON.stringify(profile))
             // Display user information

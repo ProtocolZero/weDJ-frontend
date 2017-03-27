@@ -15,8 +15,28 @@ $().ready(() => {
   }
 
   profileInfo()
+  // Check for user in the database, if they do not exist create user
+  if (!validUser(email)) {
+    createUser(email, userName)
+  }
+  
 
   $('.dash-header').html(`${userName}'s playlists`)
+
+  function validUser(email) {
+    $.get(`https://wedj.herokuapp.com/user/${email}`)
+        .then((result) => {
+          return result ? true : false
+        })
+  }
+
+  function createUser(email, userName) {
+    const user = { email: email, username: userName }
+    $.post(`https://wedj.herokuapp.com/user`, user)
+      .then((data) => {
+        console.log(data)
+      })
+  }
 
   function showPlaylists(playlists) {
     playlists.forEach(playlist => {
