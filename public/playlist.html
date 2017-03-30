@@ -33,28 +33,51 @@
 
 	<!-- Main -->
 	<main>
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<section class="section playlist-section">
 
-							<div class="container">
+							<div class="container-fluid">
 
 								<div class="row">
 
-									<section class="section current-song">
-										<div id="player"></div>
-										<div class="details-current"></div>
+									<section class="section col s12 l6 offset-l1">
+										<div class="container-fluid">
+											<div class="row">
+
+												<div id="player" class="col s12"></div>
+
+												<section class="col s12 current-song-details">
+													<table>
+														<thead>
+															<tr>
+																<th>Now Playing</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="current-song"></td>
+															</tr>
+														</tbody>
+													</table>
+												</section>
+
+											</div>
+										</div>
 									</section>
+
+									<section class="section col s12 l4 playlist-items">
 
 									<table>
 										<thead>
 											<tr>
-												<th id="name">Your playlist</th>
+												<th id="name"></th>
 											</tr>
 										</thead>
 										<tbody class="songinfo">
 										</tbody>
 									</table>
+									</section>
 
 								</div>
 							</div>

@@ -25,10 +25,11 @@ body {
       rgba(0, 0, 0, 0.75)
     );
 }
-.current-song {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+#player {
+	height: 50vh;
+}
+#name {
+	padding-top: 0px;
 }
 a.brand-logo:hover {
   color:hsla(55, 93%, 84%, 1);
@@ -37,7 +38,8 @@ a.brand-logo:hover {
 	padding: 0 8px;
 }
 .playlist-section {
-	margin-top: 30px;
+	margin: 40px auto;
+	padding: 30px auto;
 }
 .add-song {
   float: right;
@@ -48,9 +50,6 @@ a.brand-logo:hover {
 }
 td.songname:hover {
   color: hsla(335, 71%, 64%, 1);
-}
-.change-song {
-	border-radius: 50px;
 }
 .change-song:hover {
   color: hsla(335, 71%, 64%, 1);
