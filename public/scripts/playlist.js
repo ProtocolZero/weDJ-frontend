@@ -64,6 +64,7 @@ function playerReady() {
       console.log(data)
       var name = data.name
       $('#name').text(name)
+      $('.ytp-playlist-menu-title-name').text(name)
     })
   }
   function getSongs() {
@@ -81,11 +82,11 @@ function playerReady() {
               $('.change-song').click(function (e){
                 player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
               })
+              changeName()
             }
             })
         })
       })
     }
     getSongs()
-    changeName()
 }
