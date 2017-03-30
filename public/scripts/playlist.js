@@ -1,6 +1,8 @@
 var tag = document.createElement('script');
 var pl = []
-var playlist = []
+var name = "playlist"
+var sl = []
+
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 const url = "https://wedj.herokuapp.com"
@@ -12,7 +14,42 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player
 
 function onPlayerStateChange (e){
-  // console.log('State Change! ', e)
+  console.log('Changed')
+  var state = player.getPlayerState()
+  if ( state == 1 && player.getPlaylistIndex() != 0){
+   var rotation = player.getPlaylistIndex()
+   for (count = 0; count < rotation; count++){
+     var temp = pl.shift()
+     var temp2 = sl.shift()
+     pl.push(temp)
+     sl.push(temp2)
+
+   }
+   player.loadPlaylist(pl)
+   $('.songinfo').empty()
+   sl.forEach(function (song){
+     addSongs(song)
+   })
+   $('.change-song').click(function (e){
+     player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
+   })
+  }
+}
+function addSongs(song) {
+ $('.songinfo').append(
+  `<tr class="playlist-item">
+     <td class="songname">
+      <button class="btn waves-effect waves-light change-song right" value="${song.URL}">Play</button>
+      ${song.name}
+     </td>
+     <td>
+       <button class="btn waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
+     </td>
+     <td>
+       <button class="btn waves-effect waves-light red"><i class="material-icons">thumb_down</i></button>
+     </td>
+   </tr>`
+  )
 }
 
 function onYouTubeIframeAPIReady() {
@@ -24,75 +61,40 @@ function onYouTubeIframeAPIReady() {
   })
 }
 
-function playerReady() {
-
-
-
-  $(document).on('click', '.change-song', (e) => {
-		console.log(pl)
-		console.log('Song changed! New video ID: ', e.target.value)
-		player.loadVideoById(e.target.value)
-    // $('#player').attr('src', `${YTurl}${e.target.value}`)
+function changeName (){
+  $.get(`${url}/playlist/${pId}`)
+  .then(data=>{
+    console.log(data)
+    name = data.name
+    $('#name').text(name)
   })
-
-  function addSongs(song) {
-		console.log('Adding song: ', song)
-   $('.songinfo').append(
-    `<tr class="playlist-item">
-       <td class="songname">
-        <button class="btn waves-effect waves-light change-song" value="${song.URL}"><i class="material-icons">play_arrow</i></button>
-        ${song.name}
-       </td>
-       <td>
-         <button class="btn waves-effect waves-light"><span class="like-number">${song.likes}</span> <i class="material-icons">thumb_up</i></button>
-       </td>
-       <td>
-         <button class="btn waves-effect waves-light red"><span class="dislike-number">${song.dislikes}</span> <i class="material-icons">thumb_down</i></button>
-       </td>
-     </tr>`
-    )
-  }
-
-	function getPlaylistData() {
-		return Promise.all([
-			$.get(`${url}/playlist/${pId}`), 
-			$.get(`${url}/playlist_song/playlist/${pId}`)
-		])
-		.then(response => {
-			const playlist = response[0]
-			const playlistSongs = response[1]
-			playlist.songs = []
-
-			playlistSongs.map(song => {
-				return $.get(`https://wedj.herokuapp.com/song/${song.s_id}`).then(songResponse => {
-					songResponse.likes = song.likes
-					songResponse.dislikes = song.dislikes
-					playlist.songs.push(songResponse)
-					addSongs(songResponse)
-					pl.push(songResponse.URL)
-					player.loadPlaylist({playlist: pl})
-				})
-			})
-			// return Promise.all([songs])
-		})
-	}
-	getPlaylistData().then(() => console.log('getPlaylistData Finished!'))
+}
+function playerReady() {
 
 
   function getSongs() {
     $.get(`${url}/playlist_song/playlist/${pId}`)
       .then(songs => {
+
+        var firstSong = null
         songs.forEach(song => {
           $.get(`${url}/song/${song.s_id}`)
             .then(song => {
               addSongs(song)
               pl.push(song.URL)
+              sl.push(song)
+              if (ind = songs.length - 1){
               player.loadPlaylist({playlist: pl})
+              $('.change-song').click(function (e){
+                player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
+              })
+            }
             })
         })
       })
     }
-    // getSongs()
+    getSongs()
+    changeName()
 }
 
 let partyMode = false;
