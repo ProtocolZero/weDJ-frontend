@@ -1,35 +1,45 @@
 body {
   background: url('./gplaypattern_@2X.png');
-  animation: animatedBackground 30s linear infinite;
-  letter-spacing: 5px;
+	transition: all .3s linear;
+  animation: animatedBackground 60s linear infinite;
+  letter-spacing: 2px;
   font-family: 'Gloria Hallelujah', cursive;
 }
 
 @keyframes animatedBackground {
 	from { background-position: 0 0; }
-	to { background-position: 100% 0; }
+	to { background-position: 0 100%; }
 }
-.current-song {
-  margin: 40px 0 40px 0;
+#overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100vw;
+	z-index: -1;
 }
-
+.background-overlay {
+	background: 
+		linear-gradient(
+      rgba(0, 0, 0, 0.75), 
+      rgba(0, 0, 0, 0.75)
+    );
+}
+#player {
+	height: 50vh;
+}
+#name {
+	padding-top: 0px;
+}
 a.brand-logo:hover {
-  color:hsla(55, 93%, 84%, 1)
+  color:hsla(55, 93%, 84%, 1);
 }
-.col.song {
-  height: 300px;
-  border-radius: 2px;
-  position: relative;
-  margin-right: 20px;
+.nav-links > a {
+	padding: 0 8px;
 }
-
-.img-current {
-  width: 100%;
-  object-fit: cover;
-  height: 270px;
-}
-.col.details-current {
-  padding-top: 110px;
+.playlist-section {
+	margin: 40px auto;
+	padding: 30px auto;
 }
 .add-song {
   float: right;
@@ -43,7 +53,4 @@ td.songname:hover {
 }
 .change-song:hover {
   color: hsla(335, 71%, 64%, 1);
-}
-table {
-  margin-top: 50px;
 }

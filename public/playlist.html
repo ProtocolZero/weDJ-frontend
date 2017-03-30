@@ -1,74 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>WeDJ collaborative playlist</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
-    <link href="./stylesheets/playlist.css" rel="stylesheet">
-    <link href="./stylesheets/header-footer.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="navbar-fixed">
-      <nav class="main-nav">
-        <div class="nav-wrapper">
-          <a href="./dashboard.html" class="brand-logo">WeDJ</a>
-          <a id="btn-logout" class="waves-effect waves-light right logout">Log out</a>
-        </div>
-      </nav>
-    </div>
-    <a href="./dashboard.html" class="left">< Back to Dashboard</a>
-    <div class="container">
-      <div class="row s12 current-song">
-        <div class="col l8 m8 s12 song">
-            <div id="player"></div>
-        </div>
-        <div class="col l3 m3 s12 details-current">
-        </div>
-    </div>
-      <div class="row s12 highlight">
-        <table>
-          <thead>
-            <tr>
-                <th id="name">Your playlist</th>
-            </tr>
-          </thead>
-          <tbody class="songinfo">
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <footer class="page-footer">
-        <div class="container">
-          <div class="row">
-            <div class="col l6 s12">
-              <h5>WeDJ Collaborative playlist</h5>
-              <p>This site is built with HTML5, CSS3, Materialize, jQuery, Javascript, Express, Knex, PostgreSQL</p>
-            </div>
-            <div class="col l4 offset-l2 s12">
-              <h5>Links</h5>
-              <ul>
-                <li><a class ="footer-link" href="#!">Link 1</a></li>
-                <li><a class ="footer-link" href="#!">Link 2</a></li>
-                <li><a class ="footer-link" href="#!">Link 3</a></li>
-                <li><a class ="footer-link" href="#!">Link 4</a></li>
-              </ul>
-             </div>
-          </div>
-        </div>
-        <div class="footer-copyright">
-          <div class="container">
-          © WeDJ Collaborative playlist. Protocol Zero. All rights reserved.
-          </div>
-        </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"
-    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-    <script src="./scripts/logout.js"></script>
 
-    <script src="./scripts/playlist.js"></script>
-  </body>
+<head>
+	<meta charset="utf-8">
+	<title>WeDJ collaborative playlist</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+	<link href="./stylesheets/playlist.css" rel="stylesheet">
+	<link href="./stylesheets/header-footer.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="overlay" class="background-overlay"></div>
+
+
+	<!-- Header -->
+	<header>
+		<div class="navbar-fixed">
+			<nav class="main-nav">
+				<div class="nav-wrapper container">
+					<a href="./dashboard.html" class="brand-logo left">WeDJ</a>
+					<div class="right nav-links">
+						<a id="party-mode" href="#!" class="waves-effect waves-light">PARTY MODE</a>
+						<a href="./dashboard.html" class="waves-effect waves-light">My Playlists</a>
+						<a id="btn-logout" class="waves-effect waves-light logout">Log out</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Main -->
+	<main>
+		<div class="container-fluid">
+			<div class="row">
+				<section class="section playlist-section">
+
+							<div class="container-fluid">
+
+								<div class="row">
+
+									<section class="section col s12 l6 offset-l1">
+										<div class="container-fluid">
+											<div class="row">
+
+												<div id="player" class="col s12"></div>
+
+												<section class="col s12 current-song-details">
+													<table>
+														<thead>
+															<tr>
+																<th>Now Playing</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="current-song"></td>
+															</tr>
+														</tbody>
+													</table>
+												</section>
+
+											</div>
+										</div>
+									</section>
+
+									<section class="section col s12 l4 playlist-items">
+
+									<table>
+										<thead>
+											<tr>
+												<th id="name"></th>
+											</tr>
+										</thead>
+										<tbody class="songinfo">
+										</tbody>
+									</table>
+									</section>
+
+								</div>
+							</div>
+				</section>
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5>WeDJ Collaborative playlist</h5>
+					<p>This site is built with HTML5, CSS3, Materialize, jQuery, Javascript, Express, Knex, PostgreSQL</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5>Links</h5>
+					<ul>
+						<li><a class="footer-link" href="#!">Link 1</a></li>
+						<li><a class="footer-link" href="#!">Link 2</a></li>
+						<li><a class="footer-link" href="#!">Link 3</a></li>
+						<li><a class="footer-link" href="#!">Link 4</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				© WeDJ Collaborative playlist. Protocol Zero. All rights reserved.
+			</div>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+	<script src="./scripts/logout.js"></script>
+	<script src="./scripts/playlist.js"></script>
+</body>
+
 </html>
