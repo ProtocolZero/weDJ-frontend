@@ -34,13 +34,12 @@ function onYouTubeIframeAPIReady() {
 
 function playerReady() {
 
-  function changeSong(url) {
-   $('#player').attr('src', `${YTurl}url`)
-  }
+  function changeSong(e) {
+   var songsCount = pl.length
+   player.loadPlaylist({playlist: pl, index: e.target.index() })
+}
 
-  $(document).on('click', '.change-song', (e) => {
-    $('#player').attr('src', `${YTurl}${e.target.value}`)
-  })
+
 
   function addSongs(song) {
    $('.songinfo').append(
@@ -76,7 +75,12 @@ function changeName (){
             .then(song => {
               addSongs(song)
               pl.push(song.URL)
+              if (ind = songs.length - 1){
               player.loadPlaylist({playlist: pl})
+              $('.change-song').click(function (e){
+                player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
+              })
+            }
             })
         })
       })
