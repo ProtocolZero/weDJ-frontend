@@ -12,7 +12,15 @@ var player
 
 function onPlayerStateChange (e){
   console.log('Changed')
-  console.log(e)
+  var state = player.getPlayerState()
+  if ( state == 1 && player.getPlaylistIndex() != 0){
+   var rotation = player.getPlaylistIndex()
+   for (count = 0; count < rotation; count++){
+     var temp = pl.shift()
+     pl.push(temp)
+   }
+   player.loadPlaylist(pl)
+  }
 }
 
 function onYouTubeIframeAPIReady() {
@@ -51,10 +59,17 @@ function playerReady() {
     )
   }
 
-
+function changeName (){
+  $.get(`${url}/playlist/${pId}`)
+  .then(data=>{
+    var name = data[0].title
+    $('#name').text(name)
+  })
+}
   function getSongs() {
     $.get(`${url}/playlist_song/playlist/${pId}`)
       .then(songs => {
+
         var firstSong = null
         songs.forEach(song => {
           $.get(`${url}/song/${song.s_id}`)
