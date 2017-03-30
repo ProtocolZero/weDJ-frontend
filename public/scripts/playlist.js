@@ -58,13 +58,14 @@ function playerReady() {
     )
   }
 
-function changeName (){
-  $.get(`${url}/playlist/${pId}`)
-  .then(data=>{
-    var name = data[0].title
-    $('#name').text(name)
-  })
-}
+  function changeName (){
+    $.get(`${url}/playlist/${pId}`)
+    .then(data=>{
+      console.log(data)
+      var name = data.name
+      $('#name').text(name)
+    })
+  }
   function getSongs() {
     $.get(`${url}/playlist_song/playlist/${pId}`)
       .then(songs => {
@@ -86,4 +87,5 @@ function changeName (){
       })
     }
     getSongs()
+    changeName()
 }
