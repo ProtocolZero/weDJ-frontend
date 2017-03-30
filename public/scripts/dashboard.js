@@ -19,7 +19,7 @@ $().ready(() => {
   if (!validUser(email)) {
     createUser(email, userName)
   }
-  
+
 
   $('.dash-header').html(`${userName}'s playlists`)
 
