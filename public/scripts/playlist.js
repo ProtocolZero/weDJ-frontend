@@ -39,7 +39,7 @@ function addSongs(song) {
  $('.songinfo').append(
   `<tr class="playlist-item">
      <td class="songname">
-      <button class="btn waves-effect waves-light change-song right" value="${song.URL}">Play</button>
+      <button class="btn waves-effect waves-light change-song" value="${song.URL}"><i class="material-icons">play_arrow</i></button>
       ${song.name}
      </td>
      <td>
