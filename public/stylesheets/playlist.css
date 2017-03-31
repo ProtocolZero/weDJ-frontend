@@ -1,7 +1,7 @@
 body {
   background: url('./gplaypattern_@2X.png');
 	transition: all .3s linear;
-  animation: animatedBackground 60s linear infinite;
+  animation: animatedBackground 45s linear infinite;
   letter-spacing: 2px;
   font-family: 'Gloria Hallelujah', cursive;
 }
@@ -40,10 +40,6 @@ a.brand-logo:hover {
 .playlist-section {
 	margin: 40px auto;
 	padding: 30px auto;
-}
-.add-song {
-  float: right;
-  margin: 20px;
 }
 .table {
   width: 100%;

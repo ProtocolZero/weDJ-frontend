@@ -15,6 +15,8 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player
 
+$('.songinfo').hide();
+
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
   if (player.getPlaylistIndex() != 0 || state == 5 || state == 0){
@@ -27,8 +29,10 @@ function onPlayerStateChange (e){
      sl.push(temp2)
      plsl.push(temp3)
    }
+
    plsl.forEach(function(el, ind, arr){
      el.song_order = ind +1
+
    })
    plsl.forEach(function (el, ind, arr){
      $.ajax({
@@ -53,17 +57,16 @@ function addSongs(song) {
       ${song.name}
      </td>
      <td>
-       <button class="btn btn-floating waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
+       <button class="btn btn-floating waves-effect waves-light move-up-queue"><i class="material-icons">arrow_upward</i></button>
      </td>
      <td>
-       <button class="btn btn-floating waves-effect waves-light red"><i class="material-icons">thumb_down</i></button>
+       <button class="btn btn-floating waves-effect waves-light red"><i class="material-icons">arrow_downward</i></button>
      </td>
    </tr>`
-  )
+  ).fadeIn('slow')
 }
 
 function setCurrentSong(song) {
-	console.log(song)
 	$('.current-song').empty().hide().fadeOut('slow')
 	$('.current-song').append(`${song.name}`).fadeIn('slow')
 }
@@ -129,7 +132,6 @@ function getSongs() {
     })
 }
 function playerReady() {
-
     getSongs()
     changeName()
 }
