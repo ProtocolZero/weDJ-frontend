@@ -149,7 +149,13 @@ function createSearchResultItem(resultObj) {
   );
 }
 
+let emptyPlaylist = true
 function createPlaylistItem(resultObj) {
+	if (emptyPlaylist) {
+		$('.empty-playlist').remove()
+		emptyPlaylist = false
+	}
+	$('.myInput').val('')
   $('.playlist-items').append(
     `<tr class="playlist-item">
       <td>

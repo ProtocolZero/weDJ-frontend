@@ -1,6 +1,6 @@
 body {
   background: url('./gplaypattern_@2X.png');
-  animation: animatedBackground 30s linear infinite;
+  animation: animatedBackground 60s linear infinite;
   letter-spacing: 5px;
   font-family: 'Gloria Hallelujah', cursive;
 }
@@ -10,8 +10,29 @@ body {
 	to { background-position: 100% 0; }
 }
 
+.btn {
+	border-radius: 25px;
+}
+
+#playlist {
+	font-size: 32px;
+	line-height: 38px;
+}
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
 .addUserArea, .removeUserArea {
   display: flex;
   justify-content: center;
+}
+
+.playlist-item img {
+	width: 120px;
+}
+
+footer {
+	margin-top: 80px;
 }
