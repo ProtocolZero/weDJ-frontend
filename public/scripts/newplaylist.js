@@ -182,6 +182,6 @@ $(function () {
             var profile = JSON.parse(user)
             email = profile.email
     }
-    // profileInfo()
+    profileInfo()
     newPlay();
 })
