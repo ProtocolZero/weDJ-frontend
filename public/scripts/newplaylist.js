@@ -1,6 +1,7 @@
 const path = "https://wedj.herokuapp.com/"
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
+var to
 function newPlay() {
     searchSong();
     // Save playlist
@@ -112,7 +113,10 @@ $(document).on('click', '.removesong', (e) => {
 });
 
 function searchSong() {
-    $('.search').click((e) => {
+    $('.myInput').keyup((e) => {
+      if (!!to){
+      clearTimeout(to)}
+      to = setTimeout(function(){
       // Remove previous search results
       $('.search-results').empty();
         let searchItem = $('.myInput').val()
@@ -131,7 +135,8 @@ function searchSong() {
                 createSearchResultItem(videoResult);
               });
             });
-    });
+    }, 500);
+  })
 }
 // post to songs
 // doees song already exist in database
@@ -177,6 +182,6 @@ $(function () {
             var profile = JSON.parse(user)
             email = profile.email
     }
-    profileInfo()
+    // profileInfo()
     newPlay();
 })

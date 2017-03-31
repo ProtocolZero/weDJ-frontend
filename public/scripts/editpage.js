@@ -4,6 +4,7 @@ const path = "https://wedj.herokuapp.com";
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 let pLength = 0;
+var to
 $(() => {
   // Get playlist info, playlist_song, and roles
   const getPlaylist = function(id) {
@@ -55,7 +56,9 @@ $(() => {
     });
 
 
-    $('#search-song').click((e) => {
+    $('.myInput').keyup((e) => {
+      if(!!to){ clearTimeout(to)}
+      to = setTimeout(function(){
       // Remove previous search results
       $('.search-results').empty();
         let searchItem = $('#search-query').val();
@@ -74,6 +77,7 @@ $(() => {
                 createSearchResultItem(videoResult);
               });
             });
+          }, 500)
     });
 
     // Add new song to playlist
