@@ -17,7 +17,7 @@ var player
 
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
-  if (player.getPlaylistIndex() != 0){
+  if (player.getPlaylistIndex() != 0 || state == 5 || state == 0){
    var rotation = player.getPlaylistIndex()
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
