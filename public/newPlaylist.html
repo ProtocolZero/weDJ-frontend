@@ -13,14 +13,21 @@
 </head>
 
 <body>
+	<!-- Header -->
+	<header>
     <div class="navbar-fixed">
         <nav class="main-nav">
-            <div class="nav-wrapper">
-                <a href="dashboard.html" class="brand-logo">WeDJ</a>
-                <a id="btn-logout" class="waves-effect waves-light right logout">Log out</a>
+            <div class="nav-wrapper container">
+							<a href="dashboard.html" class="brand-logo left">WeDJ</a>
+							<div class="right nav-links">
+								<a href="./dashboard.html" class="waves-effect waves-light">My Playlists</a>
+                <a id="btn-logout" class="waves-effect waves-light logout">Log out</a>
+							</div>
             </div>
         </nav>
     </div>
+	</header>
+	
     <main>
         <div class="container">
             <div class="row">
@@ -34,10 +41,8 @@
                         <input id="playlist" class="playlist" type="text" name="playlist-name" value="">
                     </div>
                     <article class="stuff2Edit">
-                        <img src="http://placehold.it/150x150" alt="playlist-image">
                         <h5>Search for Songs..</h5>
                         <div class="addUserArea">
-                            <button class="btn-floating addsong" type="button" name="add-button">&#43;</button>
                             <input class="myInput" type="text" name="" value="">
                             <button class="btn search" type="button" name="search-button">search</button>
                         </div>
