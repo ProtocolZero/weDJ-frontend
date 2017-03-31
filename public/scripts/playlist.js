@@ -63,6 +63,7 @@ function addSongs(song) {
 }
 
 function setCurrentSong(song) {
+	console.log(song)
 	$('.current-song').empty().hide().fadeOut('slow')
 	$('.current-song').append(`${song.name}`).fadeIn('slow')
 }
@@ -92,10 +93,12 @@ function getSongs() {
   return $.get(`${url}/playlist_song/playlist/${pId}`)
     .then(songs => {
       var target = songs.length
+      console.log(songs)
       songs.sort(function (a, b){
         return a.song_order - b.song_order
       })
       plsl = songs
+      console.log(plsl)
       songs.forEach(function (song, ind, arr) {
         sl.push(song)
         $.get(`${url}/song/${song.s_id}`)
@@ -112,7 +115,7 @@ function getSongs() {
                   }
                 }
               })
-              setCurrentSong(pl[0])
+              setCurrentSong(newarr[0])
               newarr.forEach(function(e,i,a){
                 addSongs(e)
                 newarr2.push(e.URL)
