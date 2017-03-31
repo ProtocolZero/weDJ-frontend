@@ -15,11 +15,9 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player
 
-$('.songinfo').hide();
-
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
-  if (player.getPlaylistIndex() != 0 || state == 5 || state == 0){
+  if (player.getPlaylistIndex() != 0 && state == 1){
    var rotation = player.getPlaylistIndex()
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
@@ -29,10 +27,8 @@ function onPlayerStateChange (e){
      sl.push(temp2)
      plsl.push(temp3)
    }
-
    plsl.forEach(function(el, ind, arr){
      el.song_order = ind +1
-
    })
    plsl.forEach(function (el, ind, arr){
      $.ajax({
@@ -51,22 +47,23 @@ function onPlayerStateChange (e){
    }
 function addSongs(song) {
  $('.songinfo').append(
-  `<tr class="playlist-item">
+  `<tr class="playlist-item value="${song.URL}" id="${song.name}">
      <td class="songname">
       <button class="btn btn-floating waves-effect waves-light change-song" value="${song.URL}"><i class="material-icons">play_arrow</i></button>
       ${song.name}
      </td>
      <td>
-       <button class="btn btn-floating waves-effect waves-light move-up-queue"><i class="material-icons">arrow_upward</i></button>
+       <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
      </td>
      <td>
-       <button class="btn btn-floating waves-effect waves-light red"><i class="material-icons">arrow_downward</i></button>
+       <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">thumb_down</i></button>
      </td>
    </tr>`
-  ).fadeIn('slow')
+  )
 }
 
 function setCurrentSong(song) {
+	console.log(song)
 	$('.current-song').empty().hide().fadeOut('slow')
 	$('.current-song').append(`${song.name}`).fadeIn('slow')
 }
@@ -87,7 +84,7 @@ function changeName (){
     $('#name').text(name)
   })
 }
-function getSongs() {
+function getSongs(j) {
   pl = []
   newarr= []
   newarr2 = []
@@ -121,10 +118,57 @@ function getSongs() {
                 addSongs(e)
                 newarr2.push(e.URL)
               })
-
-              player.loadPlaylist({playlist: newarr2})
+              if (!j){
+              player.loadPlaylist({playlist: newarr2})}
               $('.change-song').click(function (e){
                 player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song') })
+              })
+              $('.like').click(function(e){
+                var index = $(this).index('.like')
+                var next = index - 1
+                var plslnext = plsl[next]
+                var plslcurr = plsl[index]
+                if (index > 1){
+                  plsl[next].song_order = index +1
+                  plsl[index].song_order = next + 1
+                  plsl.forEach(function (el, ind, arr){
+                    $.ajax({
+                      method: 'PUT',
+                      url: `${url}/playlist_song/`+el.id,
+                      data: el
+                    })
+                    .done(function (data){
+                      if (ind == arr.length-1){
+                        $('.songinfo').empty()
+                        var j = 8
+                        getSongs(j)
+                      }
+                        })
+                      })
+                }
+              })
+              $('.dislike').click(function(e){
+                var index = $(this).index('.dislike')
+                var next = index + 1
+                var plslnext = plsl[next]
+                var plslcurr = plsl[index]
+                if (index > 1){
+                  plsl[next].song_order = index +1
+                  plsl[index].song_order = next + 1
+                  plsl.forEach(function (el, ind, arr){
+                    $.ajax({
+                      method: 'PUT',
+                      url: `${url}/playlist_song/`+el.id,
+                      data: el
+                    })
+                    .done(function (data){
+                      if (ind == arr.length-1){
+                        $('.songinfo').empty()
+                          getSongs(j)
+                      }
+                        })
+                      })
+                }
               })
             }
           })
@@ -132,6 +176,7 @@ function getSongs() {
     })
 }
 function playerReady() {
+
     getSongs()
     changeName()
 }
