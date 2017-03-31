@@ -17,7 +17,7 @@ var player
 
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
-  if ( state == 1 && player.getPlaylistIndex() != 0){
+  if (player.getPlaylistIndex() != 0){
    var rotation = player.getPlaylistIndex()
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
@@ -85,7 +85,6 @@ function changeName (){
   })
 }
 function getSongs() {
-  sl = []
   pl = []
   newarr= []
   newarr2 = []
@@ -100,7 +99,6 @@ function getSongs() {
       plsl = songs
       console.log(plsl)
       songs.forEach(function (song, ind, arr) {
-        sl.push(song)
         $.get(`${url}/song/${song.s_id}`)
           .then(song => {
             count++
