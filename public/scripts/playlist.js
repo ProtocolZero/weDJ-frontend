@@ -2,7 +2,9 @@ var tag = document.createElement('script');
 var pl = []
 var name = "playlist"
 var sl = []
-
+var plsl = []
+var newarr = []
+var newarr2 = []
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 const url = "https://wedj.herokuapp.com"
@@ -20,21 +22,29 @@ function onPlayerStateChange (e){
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
      var temp2 = sl.shift()
+     var temp3 = plsl.shift()
      pl.push(temp)
      sl.push(temp2)
-
+     plsl.push(temp3)
    }
-   player.loadPlaylist(pl)
-   $('.songinfo').empty()
-	 setCurrentSong(sl[0])
-   sl.forEach(function (song){
-     addSongs(song)
+   plsl.forEach(function(el, ind, arr){
+     el.song_order = ind +1
    })
-   $('.change-song').click(function (e){
-     player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
-   })
-  }
-}
+   plsl.forEach(function (el, ind, arr){
+     $.ajax({
+       method: 'PUT',
+       url: `${url}/playlist_song/`+el.id,
+       data: el
+     })
+     .done(function (data){
+       if (ind == arr.length-1){
+         $('.songinfo').empty()
+         getSongs()
+       }
+         })
+       })
+     }
+   }
 function addSongs(song) {
  $('.songinfo').append(
   `<tr class="playlist-item">
@@ -53,7 +63,6 @@ function addSongs(song) {
 }
 
 function setCurrentSong(song) {
-	console.log(song)
 	$('.current-song').empty().hide().fadeOut('slow')
 	$('.current-song').append(`${song.name}`).fadeIn('slow')
 }
@@ -74,32 +83,52 @@ function changeName (){
     $('#name').text(name)
   })
 }
+function getSongs() {
+  sl = []
+  pl = []
+  newarr= []
+  newarr2 = []
+  var count = 0
+  return $.get(`${url}/playlist_song/playlist/${pId}`)
+    .then(songs => {
+      var target = songs.length
+      songs.sort(function (a, b){
+        return a.song_order - b.song_order
+      })
+      plsl = songs
+      songs.forEach(function (song, ind, arr) {
+        sl.push(song)
+        $.get(`${url}/song/${song.s_id}`)
+          .then(song => {
+            count++
+            pl.push(song)
+
+            if (count == target) {
+
+              pl.forEach(function(element, index, array){
+                for (var i = 0; i < songs.length; i++){
+                  if (plsl[i].s_id == element.id) {
+                    newarr[i] = element
+                  }
+                }
+              })
+              setCurrentSong(pl[0])
+              newarr.forEach(function(e,i,a){
+                addSongs(e)
+                newarr2.push(e.URL)
+              })
+
+              player.loadPlaylist({playlist: newarr2})
+              $('.change-song').click(function (e){
+                player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song') })
+              })
+            }
+          })
+      })
+    })
+}
 function playerReady() {
 
-
-  function getSongs() {
-    return $.get(`${url}/playlist_song/playlist/${pId}`)
-      .then(songs => {
-        songs.forEach(song => {
-          $.get(`${url}/song/${song.s_id}`)
-            .then(song => {
-              addSongs(song)
-							console.log(sl)
-							if (sl.length === 0) {
-								setCurrentSong(song)
-							}
-              pl.push(song.URL)
-              sl.push(song)
-              if (ind = songs.length - 1) {
-								player.loadPlaylist({playlist: pl})
-								$('.change-song').click(function (e){
-									player.loadPlaylist({playlist: pl , index: $(this).index('.change-song') })
-								})
-            	}
-            })
-        })
-    	})
-	}
     getSongs()
     changeName()
 }
