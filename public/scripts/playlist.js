@@ -19,6 +19,7 @@ var player
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
   if (player.getPlaylistIndex() != 0 && state == 1){
+    player.stopVideo()
    var rotation = player.getPlaylistIndex()
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
