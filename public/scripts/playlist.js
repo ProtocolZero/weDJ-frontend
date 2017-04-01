@@ -54,10 +54,10 @@ function addSongs(song) {
       ${song.name}
      </td>
      <td>
-       <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
+       <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">arrow_upward</i></button>
      </td>
      <td>
-       <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">thumb_down</i></button>
+       <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">arrow_downward</i></button>
      </td>
    </tr>`
   )
