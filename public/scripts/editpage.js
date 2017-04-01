@@ -16,6 +16,7 @@ $(() => {
   const getRoles = function(id) {
     return $.get(`${path}/role/playlist/${id}`);
   }
+  function getSongs(){
   Promise.all([getPlaylist(pId), getPlaylistSongs(pId), getRoles(pId)])
     .then((results) => {
       const playlist = results[0];
@@ -56,11 +57,13 @@ $(() => {
               })
 
               sortedarr.forEach(function(el){createPlaylistItem(el)});
-            }
+              addLikeHandler(playlistSongs)
+            addDislikeHandler(playlistSongs)            }
           })
       });
-    });
-
+    })
+  }
+ getSongs()
     // Save playlist
     $('#save-playlist').click((e) => {
       console.log('hi');
@@ -188,12 +191,81 @@ $(() => {
         <p class="video-title">${resultObj.name}</p>
         </td>
         <td>
+          <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">arrow_upward</i></button>
+        </td>
+        <td>
+          <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">arrow_downward</i></button>
+        </td>
+        <td>
         <button class="btn btn-floating waves-effect waves-light red removesong" value="${resultObj.id}"><i class="material-icons">remove</i></button>
         </td>
         </tr>`
       );
     }
-
+    function addDislikeHandler(pl){
+      $('.dislike').click(function(e){
+        var plsl = pl
+        var j = false
+        var index = $(this).index('.dislike')
+        var next = index + 1
+        var plslnext = plsl[next]
+        var plslcurr = plsl[index]
+        if (index < plsl.length){
+          plsl[next].song_order = index +1
+          plsl[index].song_order = next + 1
+          var count = 0
+          plsl.forEach(function (el, ind, arr){
+            if (ind == index || ind == next){
+            $.ajax({
+              method: 'PUT',
+              url: `${path}/playlist_song/`+el.id,
+              data: el
+            })
+            .done(function (data){
+              count++
+              if (count == 2){
+                $('.playlist-items').empty()
+                var j = true
+                getSongs()
+              }
+            })
+          }
+          })
+        }
+      })
+    }
+    function addLikeHandler(pl){
+      $('.like').click(function(e){
+        var plsl = pl
+        var j = false
+        var index = $(this).index('.like')
+        var next = index - 1
+        var plslnext = plsl[next]
+        var plslcurr = plsl[index]
+        if (index > 0){
+          plsl[next].song_order = index +1
+          plsl[index].song_order = next + 1
+          var count = 0
+          plsl.forEach(function (el, ind, arr){
+            if (ind == index || ind == next){
+            $.ajax({
+              method: 'PUT',
+              url: `${path}/playlist_song/`+el.id,
+              data: el
+            })
+            .done(function (data){
+              count++
+              if (count == 2){
+                $('.playlist-items').empty()
+                var j = true
+                getSongs()
+              }
+            })
+          }
+          })
+        }
+      })
+    }
     function createSearchResultItem(resultObj) {
       $('.search-results').append(
         `<tr class="search-result-item">
