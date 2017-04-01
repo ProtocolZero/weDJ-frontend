@@ -5,6 +5,7 @@ var sl = []
 var plsl = []
 var newarr = []
 var newarr2 = []
+var j = false
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 const url = "https://wedj.herokuapp.com"
@@ -53,10 +54,10 @@ function addSongs(song) {
       ${song.name}
      </td>
      <td>
-       <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">thumb_up</i></button>
+       <button class="like btn btn-floating waves-effect waves-light"><i class="material-icons">arrow_upward</i></button>
      </td>
      <td>
-       <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">thumb_down</i></button>
+       <button class="dislike btn btn-floating waves-effect waves-light red"><i class="material-icons">arrow_downward</i></button>
      </td>
    </tr>`
   )
@@ -84,101 +85,110 @@ function changeName (){
     $('#name').text(name)
   })
 }
+function addDislikeHandler(){
+  $('.dislike').click(function(e){
+    var j = false
+    var index = $(this).index('.dislike') +1
+    var next = index + 1
+    var plslnext = plsl[next]
+    var plslcurr = plsl[index]
+    if (index < plsl.length){
+      plsl[next].song_order = index +1
+      plsl[index].song_order = next + 1
+      plsl.forEach(function (el, ind, arr){
+        $.ajax({
+          method: 'PUT',
+          url: `${url}/playlist_song/`+el.id,
+          data: el
+        })
+        .done(function (data){
+          if (ind == arr.length-1){
+            $('.songinfo').empty()
+            var j = true
+            getSongs(j)
+          }
+        })
+      })
+    }
+  })
+}
+function addLikeHandler(){
+  $('.like').click(function(e){
+    var j = false
+    var index = $(this).index('.like') + 1
+    var next = index - 1
+    var plslnext = plsl[next]
+    var plslcurr = plsl[index]
+    if (index > 1){
+      plsl[next].song_order = index +1
+      plsl[index].song_order = next + 1
+      plsl.forEach(function (el, ind, arr){
+        $.ajax({
+          method: 'PUT',
+          url: `${url}/playlist_song/`+el.id,
+          data: el
+        })
+        .done(function (data){
+          if (ind == arr.length-1){
+            $('.songinfo').empty()
+            var j = true
+            getSongs(j)
+          }
+        })
+      })
+    }
+  })
+}
+function changeTrack(j){
+  pl.forEach(function(element, index, array){
+    for (var i = 0; i < plsl.length; i++){
+      if (plsl[i].s_id == element.id) {
+      newarr[i] = element
+      }
+    }
+  })
+  setCurrentSong(newarr[0])
+  newarr.forEach(function(e,i,a){
+    if (i != 0){
+      addSongs(e)
+    }
+    newarr2.push(e.URL)
+  })
+  if (!j){
+  player.loadPlaylist({playlist: newarr2})}
+  $('.change-song').click(function (e){
+    player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song')+1 })
+  })
+  addLikeHandler()
+  addDislikeHandler()
+}
 function getSongs(j) {
   pl = []
   newarr= []
   newarr2 = []
   var count = 0
-  return $.get(`${url}/playlist_song/playlist/${pId}`)
-    .then(songs => {
-      var target = songs.length
-      console.log(songs)
-      songs.sort(function (a, b){
-        return a.song_order - b.song_order
-      })
-      plsl = songs
-      console.log(plsl)
-      songs.forEach(function (song, ind, arr) {
-        $.get(`${url}/song/${song.s_id}`)
-          .then(song => {
-            count++
-            pl.push(song)
-
-            if (count == target) {
-
-              pl.forEach(function(element, index, array){
-                for (var i = 0; i < songs.length; i++){
-                  if (plsl[i].s_id == element.id) {
-                    newarr[i] = element
-                  }
-                }
-              })
-              setCurrentSong(newarr[0])
-              newarr.forEach(function(e,i,a){
-		if (i != 0){
-               	   addSongs(e)
-		}
-                newarr2.push(e.URL)
-              })
-              if (!j){
-              player.loadPlaylist({playlist: newarr2})}
-              $('.change-song').click(function (e){
-                player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song')+1 })
-              })
-              $('.like').click(function(e){
-                var index = $(this).index('.like') + 1
-                var next = index - 1
-                var plslnext = plsl[next]
-                var plslcurr = plsl[index]
-                if (index > 1){
-                  plsl[next].song_order = index +1
-                  plsl[index].song_order = next + 1
-                  plsl.forEach(function (el, ind, arr){
-                    $.ajax({
-                      method: 'PUT',
-                      url: `${url}/playlist_song/`+el.id,
-                      data: el
-                    })
-                    .done(function (data){
-                      if (ind == arr.length-1){
-                        $('.songinfo').empty()
-                        var j = 8
-                        getSongs(j)
-                      }
-                        })
-                      })
-                }
-              })
-              $('.dislike').click(function(e){
-                var index = $(this).index('.dislike') +1
-                var next = index + 1
-                var plslnext = plsl[next]
-                var plslcurr = plsl[index]
-                if (index < plsl.length){
-                  plsl[next].song_order = index +1
-                  plsl[index].song_order = next + 1
-                  plsl.forEach(function (el, ind, arr){
-                    $.ajax({
-                      method: 'PUT',
-                      url: `${url}/playlist_song/`+el.id,
-                      data: el
-                    })
-                    .done(function (data){
-                      if (ind == arr.length-1){
-                        $('.songinfo').empty()
-                          getSongs(j)
-                      }
-                        })
-                      })
-                }
-              })
-            }
-          })
+  $.get(`${url}/playlist_song/playlist/${pId}`)
+  .then(songs => {
+    var target = songs.length
+    console.log(songs)
+    songs.sort(function (a, b){
+      return a.song_order - b.song_order
+    })
+    plsl = songs
+    console.log(plsl)
+    songs.forEach(function (song, ind, arr) {
+      $.get(`${url}/song/${song.s_id}`)
+      .then(song => {
+        count++
+        pl.push(song)
+        if (count == target) {
+          changeTrack(j)
+        }
       })
     })
+  })
 }
 function playerReady() {
-
     getSongs()
     changeName()
 }

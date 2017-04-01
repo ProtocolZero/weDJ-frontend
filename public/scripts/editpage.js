@@ -19,7 +19,10 @@ $(() => {
   Promise.all([getPlaylist(pId), getPlaylistSongs(pId), getRoles(pId)])
     .then((results) => {
       const playlist = results[0];
-      const playlistSongs = results[1];
+      var playlistSongs = results[1];
+      playlistSongs.sort(function(a,b){
+        return a.song_order - b.song_order
+      })
       const roles = results[2];
       const $collabList = $('.collaborator-list');
       // Display collaborators
@@ -32,10 +35,28 @@ $(() => {
       pLength = playlistSongs.length;
       $('#playlist').val(playlist.name);
       // Get song info
+      var songarr = []
+      var count = 0
+      var target = playlistSongs.length
       playlistSongs.forEach((item) => {
         $.get(`${path}/song/${item.s_id}`)
           .then((song) => {
-            createPlaylistItem(song);
+
+
+            count++
+            songarr.push(song)
+            if (count == target) {
+              var sortedarr = []
+              songarr.forEach(function(el, ind, arr){
+                for (var i = 0; i < arr.length; i++){
+                  if (playlistSongs[i].s_id == el.id){
+                    sortedarr[i] = el
+                  }
+                }
+              })
+
+              sortedarr.forEach(function(el){createPlaylistItem(el)});
+            }
           })
       });
     });
