@@ -130,7 +130,7 @@ function getSongs(j) {
                 var next = index - 1
                 var plslnext = plsl[next]
                 var plslcurr = plsl[index]
-                if (index > 0){
+                if (index > 1){
                   plsl[next].song_order = index +1
                   plsl[index].song_order = next + 1
                   plsl.forEach(function (el, ind, arr){
