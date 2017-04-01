@@ -115,7 +115,7 @@ function getSongs(j) {
               })
               setCurrentSong(newarr[0])
               newarr.forEach(function(e,i,a){
-                addSongs(e)
+                if (i != 0) {addSongs(e)}
                 newarr2.push(e.URL)
               })
               if (!j){
