@@ -123,7 +123,7 @@ function getSongs(j) {
               if (!j){
               player.loadPlaylist({playlist: newarr2})}
               $('.change-song').click(function (e){
-                player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song') })
+                player.loadPlaylist({playlist: newarr2 , index: $(this).index('.change-song')+1 })
               })
               $('.like').click(function(e){
                 var index = $(this).index('.like') + 1
