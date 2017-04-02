@@ -66,7 +66,6 @@ $(() => {
  getSongs()
     // Save playlist
     $('#save-playlist').click((e) => {
-      console.log('hi');
       $.ajax({
         url: `${path}/playlist/${pId}`,
         method: 'PUT',
@@ -79,6 +78,48 @@ $(() => {
       });
     });
 
+		// Delete Playlist
+		$('#delete-playlist').click((e) => {
+			// Get playlist_songs and user roles
+			Promise.all([getPlaylistSongs(pId), getRoles(pId)])
+				.then(results => {
+					const playlistSongs = results[0]
+					const userRoles = results[1]
+					// Delete playlist_songs, roles, playlist
+					const delPlSongs = playlistSongs.map(item => {
+						deletePlaylistSong(item)
+					})
+					const delRoles = userRoles.map(role => {
+						deleteUserRole(role)
+					})
+					return Promise.all([delPlSongs, delRoles, deletePlaylist()])
+				})
+				.then(() => {
+					console.log('PLAYLIST DATA DELETED')
+					window.location.href = './dashboard.html'
+				})
+		});
+
+		function deletePlaylistSong(item) {
+				return $.ajax({
+					url: `${path}/playlist_song/${item.id}`,
+					method: 'DELETE',
+				})
+		}
+
+		function deleteUserRole(role) {
+			return $.ajax({
+				url: `${path}/role/${role.id}`,
+				method: 'DELETE'
+			})
+		}
+
+		function deletePlaylist() {
+			return $.ajax({
+				url: `${path}/playlist/${pId}`,
+				method: 'DELETE'
+			})
+		}
 
     $('.myInput').keyup((e) => {
       if(!!to){ clearTimeout(to)}
