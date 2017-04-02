@@ -19,6 +19,7 @@ var player
 function onPlayerStateChange (e){
   var state = player.getPlayerState()
   if (player.getPlaylistIndex() != 0 && state == 1){
+    player.stopVideo()
    var rotation = player.getPlaylistIndex()
    for (count = 0; count < rotation; count++){
      var temp = pl.shift()
@@ -95,14 +96,18 @@ function addDislikeHandler(){
     if (index < plsl.length){
       plsl[next].song_order = index +1
       plsl[index].song_order = next + 1
+      var count = 0
+
       plsl.forEach(function (el, ind, arr){
+        if (ind = index || ind == next)
         $.ajax({
           method: 'PUT',
           url: `${url}/playlist_song/`+el.id,
           data: el
         })
         .done(function (data){
-          if (ind == arr.length-1){
+          count++
+          if (count == 2){
             $('.songinfo').empty()
             var j = true
             getSongs(j)
@@ -122,14 +127,18 @@ function addLikeHandler(){
     if (index > 1){
       plsl[next].song_order = index +1
       plsl[index].song_order = next + 1
+      var count = 0
+
       plsl.forEach(function (el, ind, arr){
+        if (ind = index || ind == next)
         $.ajax({
           method: 'PUT',
           url: `${url}/playlist_song/`+el.id,
           data: el
         })
         .done(function (data){
-          if (ind == arr.length-1){
+          count++
+          if (count == 2){
             $('.songinfo').empty()
             var j = true
             getSongs(j)
