@@ -1,12 +1,14 @@
 $().ready(() => {
-  const url = "https://wedj.herokuapp.com"
+  const url = "https://wedjtestserver.herokuapp.com"
   let email = ""
   let userName = ""
   const plistArr = []
   const userArr = []
-
+  $.ajaxSetup({
+      headers: { 'Authorization': 'Bearer '+ localStorage.getItem('accessToken') }
+  });
   function profileInfo() {
-   var token = localStorage.getItem('access_token')
+   var token = localStorage.getItem('accessToken')
    var user = localStorage.getItem('profile')
    var profile = JSON.parse(user)
 
@@ -24,7 +26,7 @@ $().ready(() => {
   $('.dash-header').html(`${userName}'s playlists`)
 
   function validUser(email) {
-    $.get(`https://wedj.herokuapp.com/user/${email}`)
+    $.get(`${url}/user/${email}`)
         .then((result) => {
           return result ? true : false
         })
@@ -32,7 +34,7 @@ $().ready(() => {
 
   function createUser(email, userName) {
     const user = { email: email, username: userName }
-    $.post(`https://wedj.herokuapp.com/user`, user)
+    $.post(`${url}/user`, user)
       .then((data) => {
         console.log(data)
       })
@@ -52,16 +54,18 @@ $().ready(() => {
             <p>Role: ${playlist.role}</p>
             <a href="./editPlaylist.html?id=${playlist.id}" class="btn-floating edit halfway-fab waves-effect waves-light"><i class="material-icons">edit</i></a>
             `)
-      $.get(`${url}/playlist_song/playlist/${playlist.id}`)
-        .then(songs => {
+      $.ajax({url:`${url}/playlist_song/playlist/${playlist.id}`,
+      method: 'GET'})
+        .done(songs => {
           let firstSongId = songs[0].s_id
           $.get(`${url}/song/${firstSongId}`)
             .then(song => {
                  appendImage(song, playlist.id)
             })
         })
-      $.get(`${url}/role/playlist/${playlist.id}`)
-        .then(users => {
+      $.ajax({url:`${url}/role/playlist/${playlist.id}`,
+      method: 'GET'})
+        .done(users => {
           users.forEach(user => {
             userArr.push(user.u_id)
           })
@@ -91,8 +95,9 @@ $().ready(() => {
   }
 
 
-  $.get(`${url}/role/${email}`)
-    .then(playlists => {
+  $.ajax({url:`${url}/role/${email}`,
+  method: 'GET'})
+    .done(playlists => {
       showPlaylists(playlists)
       searchPlaylists()
     })

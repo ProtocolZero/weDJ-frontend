@@ -5,14 +5,15 @@ btn_logout.addEventListener('click', function() {
 });
 
 var logout = function() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('profile');
     window.location.href = "/";
   };
 
   function notLoggedIn() {
-    var access_token = localStorage.getItem('access_token')
+    var access_token = localStorage.getItem('accessToken')
     if (access_token === null) {
-      window.location.href = "/"
+      console.log('why')
     }
   }
 

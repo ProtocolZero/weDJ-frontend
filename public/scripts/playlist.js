@@ -8,8 +8,11 @@ var newarr2 = []
 var j = false
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
-const url = "https://wedj.herokuapp.com"
+const url = "https://wedjtestserver.herokuapp.com"
 const YTurl = "https://www.youtube.com/embed/"
+$.ajaxSetup({
+    headers: { 'Authorization': 'Bearer '+ localStorage.getItem('accessToken') }
+});
 
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -36,6 +39,7 @@ function onPlayerStateChange (e){
      $.ajax({
        method: 'PUT',
        url: `${url}/playlist_song/`+el.id,
+       headers: {'Authorization': localStorage.getItem('accessToken')},
        data: el
      })
      .done(function (data){
@@ -80,11 +84,27 @@ function onYouTubeIframeAPIReady() {
 }
 
 function changeName (){
-  $.get(`${url}/playlist/${pId}`)
-  .then(data=>{
-    name = data.name
-    $('#name').text(name)
-  })
+  $.ajax({
+  method: 'GET',
+  url: `${url}/playlist/${pId}`
+//   headers: {"Authorization": localStorage.getItem('accessToken')}
+})
+.done(function(data){
+  name = data.name
+  $('#name').text(name)
+	console.log(data)
+})
+
+//   $.ajax({
+//   url: `${url}/playlist/${pId}`,
+//   method: 'GET',
+//   // Fetch the stored token from localStorage and set in the header
+//   headers: { 'Accept': '*/*', "Authorization": localStorage.getItem('accessToken'), 'Cross-Origin': true}
+// })
+//   .done(data=>{
+//     name = data.name
+//     $('#name').text(name)
+//   })
 }
 function addDislikeHandler(){
   $('.dislike').click(function(e){
@@ -176,8 +196,9 @@ function getSongs(j) {
   newarr= []
   newarr2 = []
   var count = 0
-  $.get(`${url}/playlist_song/playlist/${pId}`)
-  .then(songs => {
+  $.ajax({url:`${url}/playlist_song/playlist/${pId}`,
+  type: 'get'})
+  .done(songs => {
     var target = songs.length
     console.log(songs)
     songs.sort(function (a, b){
@@ -186,10 +207,11 @@ function getSongs(j) {
     plsl = songs
     console.log(plsl)
     songs.forEach(function (song, ind, arr) {
-      $.get(`${url}/song/${song.s_id}`)
-      .then(song => {
+      $.ajax({url:`${url}/song/${song.s_id}`,
+      type: 'get'})
+      .done(song => {
         count++
-        pl.push(song)
+        pl.push(song[0])
         if (count == target) {
           changeTrack(j)
         }

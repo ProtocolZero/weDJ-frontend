@@ -1,9 +1,17 @@
 const url = "https://www.googleapis.com/youtube/v3/search?q=";
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus";
-const path = "https://wedj.herokuapp.com";
+const path = "https://wedjtestserver.herokuapp.com";
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 let pLength = 0;
+
+$.ajaxPrefilter(function( options ) {
+    if ( !options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+ localStorage.getItem('accessToken'));
+        }
+    }
+});
 var to
 $(() => {
   // Get playlist info, playlist_song, and roles
@@ -45,7 +53,7 @@ $(() => {
 
 
             count++
-            songarr.push(song)
+            songarr.push(song[0])
             if (count == target) {
               var sortedarr = []
               songarr.forEach(function(el, ind, arr){
@@ -66,7 +74,6 @@ $(() => {
  getSongs()
     // Save playlist
     $('#save-playlist').click((e) => {
-      console.log('hi');
       $.ajax({
         url: `${path}/playlist/${pId}`,
         method: 'PUT',
@@ -88,7 +95,8 @@ $(() => {
         let searchItem = $('#search-query').val();
         const url = "https://www.googleapis.com/youtube/v3/search?q="
         const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
-        $.get(`${url}${searchItem}${setQuery}`)
+        $.ajax({url:`${url}${searchItem}${setQuery}`,
+        type: 'GET', beforeSend: function(e){console.log('aaa')}})
             .then(results => {
               const searchResults = results.items;
               searchResults.forEach((result) => {
@@ -121,7 +129,7 @@ $(() => {
             .then((item) => {
             });
         });
-      createPlaylistItem(playlistItem);
+      createPlaylistItem(playlistItem, false);
       $('.search-results').empty();
     });
 
@@ -143,9 +151,12 @@ $(() => {
                   url: `${path}/song/${songId}`,
                   method: 'DELETE'
                 })
-                .then(() => {
+                .then((result) => {
+                  console.log(result)
                   window.location.reload();
-                });
+                }).catch(function(err){
+                  window.location.reload();
+              })
               })
             }
           });
@@ -155,20 +166,11 @@ $(() => {
     // Add collaborator
     $('.addcollaborator').click((e) => {
       const $user = $('#collaborator').val();
-      // Check to see if user exists
-      $.get(`${path}/user`)
-        .then((users) => {
-          if (users.find(user => user.email === $user)) {
-            // Post to collaborators with the matched user
             $.post(`${path}/role`, { role: 'collaborator', u_id: $user, p_id: pId })
               .then((results) => {
                 window.location.reload();
               });
-          } else {
-            console.log('no match!');
-          }
-        });
-    });
+          })
 
     // Remove collaborator
     $(document).on('click', '.removerole', (e) => {
@@ -183,7 +185,7 @@ $(() => {
       });
     });
 
-    function createPlaylistItem(resultObj) {
+    function createPlaylistItem(resultObj, j) {
       $('.playlist-items').append(
         `<tr class="playlist-item">
         <td>

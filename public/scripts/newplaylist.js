@@ -1,7 +1,16 @@
-const path = "https://wedj.herokuapp.com/"
+const path = "https://wedjtestserver.herokuapp.com/"
+// const path = "https://wedj.herokuapp.com/"
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
 var to
+var ids
+$.ajaxPrefilter(function( options ) {
+    if ( !options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+ localStorage.getItem('accessToken'));
+        }
+    }
+});
 function newPlay() {
     searchSong();
     // Save playlist
@@ -10,73 +19,59 @@ function newPlay() {
         // Create new playlist item
         $.post(`${path}playlist`, { name: $('.playlist').val() })
           .then((data) => {
+            ids= data
             // console.log(data)
             // SHOULD RETURN THE NEW PLAYLIST ID WHEN POSTED
             // WE CAN USE THIS TO POST TO THE ROLE TABLE AND PL_SONG TABLE
-            $.get(`${path}playlist`)
-              .then((data) => {
-                var last = data.length
-                last --;
-                // console.log(data[last].id)
+            console.log(data)
                 $.post(`${path}role`,{
                     role: "owner",
                     u_id: email,
-                    p_id: data[last].id
+                    p_id: ids.id
                 })
                 .then(function(data) {
                     // console.log(data)
-                })
-              })
-            })
-        // save search info in a variable then post
-        // loop post until all songs are posted
-        var recentAppened = playlistData.length;
-        // console.log(playlistData)
-        for (var i = 0; i < playlistData.length; i++) {
-            $.post(`${path}song`, {
-                name: playlistData[i].name,
-                album_img: playlistData[i].album_img,
-                URL: playlistData[i].id
-            })
-                .then(function (data) {
-                    console.log(data)
-                })
-        }
-
-        $.get(`${path}song`).then(function (result) {
-            var songOrder = recentAppened;
-            var last = result.length - recentAppened;
-            for (var i = result.length; i > last; i--) {
-                do {
-                    i--;
-                } while (false) { }
-                //console.log(i)
-                //console.log('inside for loop')
-                var songID = result[i].id;
-                //console.log(songID)
-
-                $.get(`${path}playlist`).then(function (plist) {
-                    var i = plist.length;
-                    i -- ; // chenk
-                    var playID = plist[i].id;
-                    console.log(playID + " playlist id")
-                    console.log(songID + " song id")
-                    console.log(plist[i])
-                    songID ++;
-                    $.post(`${path}playlist_song`, {
-                        p_id: playID,
-                        s_id: songID,
-                        song_order: songOrder
-                    }).then(function (data){
-                        console.log(data)
+                    var recentAppened = playlistData.length;
+                    // console.log(playlistData)
+                    for (var i = 0; i < playlistData.length; i++) {
+                      var count = 0
+                      var target = playlistData.length
+                        $.post(`${path}song`, {
+                            name: playlistData[i].name,
+                            album_img: playlistData[i].album_img,
+                            URL: playlistData[i].id
+                        })
+                            .then(function (data3) {
+                                console.log(data3)
+                                var songID = data3[0].id
+                                      $.post(`${path}playlist_song`, {
+                                          p_id: ids.id,
+                                          s_id: songID,
+                                          song_order: i+1
+                                      }).then(function (data){
+                                          console.log(data)
+                                      })
+                                  })
+                                }
                     })
                 })
-                songOrder--;
+              })
             }
-            alert('Playlist Saved!');
-        })
-    })
-}
+        // save search info in a variable then post
+        // loop post until all songs are post
+
+        // $.get(`${path}song`).then(function (result) {
+        //     var songOrder = recentAppened;
+        //     var last = result.length - recentAppened;
+        //     for (var i = result.length; i > last; i--) {
+        //         do {
+        //             i--;
+        //         } while (false) { }
+        //         //console.log(i)
+        //         //console.log('inside for loop')
+        //         var songID = result[i].id;
+                //console.log(songID)
+
 // send a post to playlist|  and maybe send a post to the playlistsong join
 // btn same class for cancel and save button
 //$('#playlist').val() = newplaylist name
@@ -122,8 +117,9 @@ function searchSong() {
         let searchItem = $('.myInput').val()
         const url = "https://www.googleapis.com/youtube/v3/search?q="
         const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
-        $.get(`${url}${searchItem}${setQuery}`)
-            .then(results => {
+        $.ajax({url:`${url}${searchItem}${setQuery}`,
+        type: 'get', beforeSend: function(){console.log('aaa')}})
+            .done(results => {
               const searchResults = results.items;
               searchResults.forEach((result) => {
                 // Create list of results for user to add to playlist
