@@ -1,8 +1,15 @@
 const path = "https://wedj.herokuapp.com/"
+const searchUrl = "https://www.googleapis.com/youtube/v3/search?q="
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
 var to
 var pId
+
+// Document Ready
+$(function () {
+	profileInfo()
+	newPlay()
+})
 
 // Create New Playlist
 function newPlay() {
@@ -69,9 +76,7 @@ function searchSong() {
       // Remove previous search results
       $('.search-results').empty();
         let searchItem = $('.myInput').val()
-        const url = "https://www.googleapis.com/youtube/v3/search?q="
-        const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
-        $.get(`${url}${searchItem}${setQuery}`)
+        $.get(`${searchUrl}${searchItem}${setQuery}`)
             .then(results => {
               const searchResults = results.items;
               searchResults.forEach((result) => {
@@ -120,17 +125,12 @@ function createPlaylistItem(resultObj) {
   );
 }
 
-$(function () {
-    console.log("document.ready working");
-
-    function profileInfo(){
-            var user = localStorage.getItem('profile')
-            var profile = JSON.parse(user)
-            email = profile.email
-    }
-    profileInfo()
-    newPlay()
-})
+// Get user profile info
+function profileInfo(){
+	var user = localStorage.getItem('profile')
+	var profile = JSON.parse(user)
+	email = profile.email
+}
 
 // Database POST functions
 function postPlaylist(name) {
