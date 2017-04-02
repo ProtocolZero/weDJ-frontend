@@ -95,16 +95,22 @@ $(() => {
 					return Promise.all([delPlSongs, delRoles, deletePlaylist()])
 				})
 				.then(() => {
-					console.log('PLAYLIST DATA DELETED')
 					window.location.href = './dashboard.html'
+					console.log('PLAYLIST DATA DELETED')
 				})
 		});
 
 		function deletePlaylistSong(item) {
-				return $.ajax({
-					url: `${path}/playlist_song/${item.id}`,
-					method: 'DELETE',
-				})
+			return $.ajax({
+				url: `${path}/playlist_song/${item.id}`,
+				method: 'DELETE'
+			})
+			.done(() => {
+				console.log('PLS DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
+			})
 		}
 
 		function deleteUserRole(role) {
@@ -112,12 +118,24 @@ $(() => {
 				url: `${path}/role/${role.id}`,
 				method: 'DELETE'
 			})
+			.done(() => {
+				console.log('ROLE DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
+			})
 		}
 
 		function deletePlaylist() {
 			return $.ajax({
 				url: `${path}/playlist/${pId}`,
 				method: 'DELETE'
+			})
+			.done(() => {
+				console.log('PLAYLIST DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
 			})
 		}
 
