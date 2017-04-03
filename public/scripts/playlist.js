@@ -8,7 +8,7 @@ var newarr2 = []
 var j = false
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
-const url = "https://wedjtestserver.herokuapp.com"
+const url = "https://wedj.herokuapp.com"
 const YTurl = "https://www.youtube.com/embed/"
 $.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
