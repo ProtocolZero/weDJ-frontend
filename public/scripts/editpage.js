@@ -1,6 +1,6 @@
 const url = "https://www.googleapis.com/youtube/v3/search?q=";
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus";
-const path = "https://wedjtestserver.herokuapp.com";
+const path = "https://wedj.herokuapp.com";
 const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 let pLength = 0;
@@ -72,6 +72,66 @@ $(() => {
       });
     });
 
+		// Delete Playlist
+		$('#delete-playlist').click((e) => {
+			// Get playlist_songs and user roles
+			Promise.all([getPlaylistSongs(pId), getRoles(pId)])
+				.then(results => {
+					const playlistSongs = results[0]
+					const userRoles = results[1]
+					// Delete playlist_songs, roles, playlist
+					const delPlSongs = playlistSongs.map(item => {
+						deletePlaylistSong(item)
+					})
+					const delRoles = userRoles.map(role => {
+						deleteUserRole(role)
+					})
+					return Promise.all([delPlSongs, delRoles, deletePlaylist()])
+				})
+				.then(() => {
+					window.location.href = './dashboard.html'
+					console.log('PLAYLIST DATA DELETED')
+				})
+		});
+
+		function deletePlaylistSong(item) {
+			return $.ajax({
+				url: `${path}/playlist_song/${item.id}`,
+				method: 'DELETE'
+			})
+			.done(() => {
+				console.log('PLS DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
+			})
+		}
+
+		function deleteUserRole(role) {
+			return $.ajax({
+				url: `${path}/role/${role.id}`,
+				method: 'DELETE'
+			})
+			.done(() => {
+				console.log('ROLE DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
+			})
+		}
+
+		function deletePlaylist() {
+			return $.ajax({
+				url: `${path}/playlist/${pId}`,
+				method: 'DELETE'
+			})
+			.done(() => {
+				console.log('PLAYLIST DELETED')
+			})
+			.fail((err) => {
+				console.log(err)
+			})
+		}
 
     $('.myInput').keyup((e) => {
       if(!!to){ clearTimeout(to)}
@@ -167,7 +227,7 @@ $(() => {
         method: 'DELETE',
       })
       .then(() => {
-        window.location.reload();
+				$(e.target).parents('.collaborator-item').remove();
       });
     });
 

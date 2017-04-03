@@ -1,5 +1,4 @@
-const path = "https://wedjtestserver.herokuapp.com/"
-// const path = "https://wedj.herokuapp.com/"
+
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
 var to
@@ -11,6 +10,19 @@ $.ajaxPrefilter(function( options ) {
         }
     }
 });
+const path = "https://wedj.herokuapp.com/"
+const searchUrl = "https://www.googleapis.com/youtube/v3/search?q="
+const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
+var playlistData = []
+var to
+var pId
+
+// Document Ready
+$(function () {
+	profileInfo()
+	newPlay()
+})
+
 function newPlay() {
     searchSong();
     // Save playlist
@@ -118,8 +130,9 @@ function searchSong() {
         const url = "https://www.googleapis.com/youtube/v3/search?q="
         const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
         $.ajax({url:`${url}${searchItem}${setQuery}`,
-        type: 'get', beforeSend: function(){console.log('aaa')}})
+        type: 'get', beforeSend: function(){console.log('')}})
             .done(results => {
+
               const searchResults = results.items;
               searchResults.forEach((result) => {
                 // Create list of results for user to add to playlist
@@ -134,9 +147,6 @@ function searchSong() {
     }, 500);
   })
 }
-// post to songs
-// doees song already exist in database
-// if not send git request to youtube
 
 function createSearchResultItem(resultObj) {
   $('.search-results').append(
@@ -170,14 +180,38 @@ function createPlaylistItem(resultObj) {
   );
 }
 
-$(function () {
-    console.log("document.ready working");
+// Get user profile info
+function profileInfo(){
+	var user = localStorage.getItem('profile')
+	var profile = JSON.parse(user)
+	email = profile.email
+}
 
-    function profileInfo(){
-            var user = localStorage.getItem('profile')
-            var profile = JSON.parse(user)
-            email = profile.email
-    }
-    profileInfo()
-    newPlay();
-})
+// Database POST functions
+function postPlaylist(name) {
+	return $.post(`${path}playlist`, { name: name })
+}
+
+function postUserRole(userRole) {
+	return $.post(`${path}role`, userRole)
+}
+
+function postSong(song) {
+	console.log('Song: ', song)
+	const newSong = {
+		name: song.name,
+		album_img: song.album_img,
+		URL: song.id
+	}
+	return $.post(`${path}song`, newSong)
+}
+
+function postPlaylistSongs(id, index) {
+	const newPlaylistSong = {
+		p_id: pId,
+		s_id: id[0],
+		song_order: index + 1
+	}
+	console.log('newPlaylistSong: ', newPlaylistSong)
+	return $.post(`${path}playlist_song`, newPlaylistSong)
+}
