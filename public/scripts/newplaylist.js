@@ -1,4 +1,4 @@
-const path = "https://wedjtestserver.herokuapp.com/"
+const path = "https://wedj.herokuapp.com/"
 const searchUrl = "https://www.googleapis.com/youtube/v3/search?q="
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
