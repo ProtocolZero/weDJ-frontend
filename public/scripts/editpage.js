@@ -26,11 +26,12 @@ $(() => {
       })
       const roles = results[2];
       const $collabList = $('.collaborator-list');
+			$collabList.empty();
       // Display collaborators
       roles.forEach((role) => {
         if (role.role === 'collaborator') {
-          const userRole = $('<li>').text(role.u_id).append($('<button class="btn btn-floating red removerole">').val(role.id).append($('<i class="material-icons">').text('remove')));
-          $collabList.prepend(userRole);
+          const userRole = $('<li class="collaborator-item">').text(role.u_id).append($('<button class="btn btn-floating red removerole">').val(role.id).append($('<i class="material-icons">').text('remove')));
+          $collabList.append(userRole);
         }
       });
       pLength = playlistSongs.length;
@@ -238,7 +239,7 @@ $(() => {
         method: 'DELETE',
       })
       .then(() => {
-        window.location.reload();
+				$(e.target).parents('.collaborator-item').remove();
       });
     });
 
