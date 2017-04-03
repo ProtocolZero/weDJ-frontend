@@ -1,5 +1,5 @@
 $().ready(() => {
-  const url = "https://wedjtestserver.herokuapp.com"
+  const url = "https://wedj.herokuapp.com"
   let email = ""
   let userName = ""
   const plistArr = []
