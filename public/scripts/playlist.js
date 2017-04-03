@@ -10,8 +10,12 @@ const urlArr = window.location.href.split('=')
 const pId = urlArr[1]
 const url = "https://wedjtestserver.herokuapp.com"
 const YTurl = "https://www.youtube.com/embed/"
-$.ajaxSetup({
-    headers: { 'Authorization': 'Bearer '+ localStorage.getItem('accessToken') }
+$.ajaxPrefilter(function( options ) {
+    if ( !options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+ localStorage.getItem('accessToken'));
+        }
+    }
 });
 
 tag.src = "https://www.youtube.com/iframe_api";
@@ -35,11 +39,13 @@ function onPlayerStateChange (e){
    plsl.forEach(function(el, ind, arr){
      el.song_order = ind +1
    })
+   plsl = plsl.map(function(el, ind, arr){
+     return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
+   })
    plsl.forEach(function (el, ind, arr){
      $.ajax({
        method: 'PUT',
        url: `${url}/playlist_song/`+el.id,
-       headers: {'Authorization': localStorage.getItem('accessToken')},
        data: el
      })
      .done(function (data){
@@ -117,7 +123,9 @@ function addDislikeHandler(){
       plsl[next].song_order = index +1
       plsl[index].song_order = next + 1
       var count = 0
-
+      plsl = plsl.map(function(el, ind, arr){
+        return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
+      })
       plsl.forEach(function (el, ind, arr){
         if (ind = index || ind == next)
         $.ajax({
@@ -148,7 +156,9 @@ function addLikeHandler(){
       plsl[next].song_order = index +1
       plsl[index].song_order = next + 1
       var count = 0
-
+      plsl = plsl.map(function(el, ind, arr){
+        return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
+      })
       plsl.forEach(function (el, ind, arr){
         if (ind = index || ind == next)
         $.ajax({
@@ -207,17 +217,12 @@ function getSongs(j) {
     plsl = songs
     console.log(plsl)
     songs.forEach(function (song, ind, arr) {
-      $.ajax({url:`${url}/song/${song.s_id}`,
-      type: 'get'})
-      .done(song => {
-        count++
-        pl.push(song[0])
-        if (count == target) {
+        pl.push(song)
+        if (ind == arr.length -1) {
           changeTrack(j)
         }
       })
     })
-  })
 }
 function playerReady() {
     getSongs()

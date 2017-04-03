@@ -35,6 +35,7 @@ $(() => {
       const roles = results[2];
       const $collabList = $('.collaborator-list');
       // Display collaborators
+      $collabList.empty()
       roles.forEach((role) => {
         if (role.role === 'collaborator') {
           const userRole = $('<li>').text(role.u_id).append($('<button class="btn btn-floating red removerole">').val(role.id).append($('<i class="material-icons">').text('remove')));
@@ -47,30 +48,15 @@ $(() => {
       var songarr = []
       var count = 0
       var target = playlistSongs.length
-      playlistSongs.forEach((item) => {
-        $.get(`${path}/song/${item.s_id}`)
-          .then((song) => {
-
-
-            count++
-            songarr.push(song[0])
-            if (count == target) {
-              var sortedarr = []
-              songarr.forEach(function(el, ind, arr){
-                for (var i = 0; i < arr.length; i++){
-                  if (playlistSongs[i].s_id == el.id){
-                    sortedarr[i] = el
-                  }
-                }
-              })
-
-              sortedarr.forEach(function(el){createPlaylistItem(el)});
+      plsl = playlistSongs
+      playlistSongs.forEach(function(el, ind, arr){
+        createPlaylistItem(el)
+        if (ind == arr.length-1 ){
               addLikeHandler(playlistSongs)
             addDislikeHandler(playlistSongs)            }
           })
       });
-    })
-  }
+    }
  getSongs()
     // Save playlist
     $('#save-playlist').click((e) => {
@@ -216,6 +202,9 @@ $(() => {
           plsl[next].song_order = index +1
           plsl[index].song_order = next + 1
           var count = 0
+          plsl = plsl.map(function(el, ind, arr){
+            return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
+          })
           plsl.forEach(function (el, ind, arr){
             if (ind == index || ind == next){
             $.ajax({
@@ -248,6 +237,9 @@ $(() => {
           plsl[next].song_order = index +1
           plsl[index].song_order = next + 1
           var count = 0
+          plsl = plsl.map(function(el, ind, arr){
+            return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
+          })
           plsl.forEach(function (el, ind, arr){
             if (ind == index || ind == next){
             $.ajax({
