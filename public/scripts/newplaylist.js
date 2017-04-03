@@ -1,10 +1,16 @@
-const path = "https://wedj.herokuapp.com/"
+const path = "https://wedjtestserver.herokuapp.com/"
 const searchUrl = "https://www.googleapis.com/youtube/v3/search?q="
 const setQuery = "&type=video&part=snippet&key=AIzaSyCMWuzTs2X2BxnT4PJ7_23YmEHBoLPhTus"
 var playlistData = []
 var to
 var pId
-
+$.ajaxPrefilter(function( options ) {
+    if ( !options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer '+ localStorage.getItem('accessToken'));
+        }
+    }
+});
 // Document Ready
 $(function () {
 	profileInfo()
@@ -21,7 +27,7 @@ function newPlay() {
         // POST new playlist item
 				postPlaylist(playlistName)
           .then((playlistId) => {
-						pId = playlistId[0]
+						pId = playlistId.id
             console.log('Playlist ID: ', pId)
 						const userRole = {
 							role: "owner",
@@ -76,7 +82,7 @@ function searchSong() {
       // Remove previous search results
       $('.search-results').empty();
         let searchItem = $('.myInput').val()
-        $.get(`${searchUrl}${searchItem}${setQuery}`)
+        $.ajax({type: 'get', url: `${searchUrl}${searchItem}${setQuery}`, beforeSend: function() {console.log('escape header')}})
             .then(results => {
               const searchResults = results.items;
               searchResults.forEach((result) => {
@@ -154,7 +160,7 @@ function postSong(song) {
 function postPlaylistSongs(id, index) {
 	const newPlaylistSong = {
 		p_id: pId,
-		s_id: id[0],
+		s_id: id[0].id,
 		song_order: index + 1
 	}
 	console.log('newPlaylistSong: ', newPlaylistSong)

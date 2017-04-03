@@ -1,43 +1,29 @@
 window.addEventListener('load', function() {
 
 
-    var lock = new Auth0Lock('7rC5bCOIFS04j08SeFAygi7fvdCGoeK9', 'shep222.auth0.com', {
-        container: 'root',
-        // auth: {
-        //     // redirectUrl: 'http://localhost:5000/dashboard.html',
-        //     responseType: 'code',
-        //     params: {
-        //         scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
-        //     }
-        // }
-    });
-    lock.show();
-
-
-    // buttons
-    // btn_login.addEventListener('click', function() {
-    //     lock.show();
-    // });
-
-    // btn_logout.addEventListener('click', function() {
-    //     logout();
-    // });
+  var lock = new Auth0Lock('31RMIV2OvJCPgnLT3uGZROlu6BiFZBFS', 'tcats.auth0.com', {
+  container: 'root',
+  auth: {
+    redirect: false,
+    redirectUrl: 'http://wedj-youtube.firebaseapp.com/dashboard.html',
+    responseType: 'token',
+    params: {
+      scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+    }
+  }
+});
+lock.show();
 
     lock.on("authenticated", function(authResult) {
-        lock.getUserInfo(authResult.accessToken, function(error, profile) {
-            if (error) {
-                // Handle error
-                return;
-            }
-            localStorage.setItem('access_token', authResult.accessToken);
-            localStorage.setItem('profile', JSON.stringify(profile))
-            // Display user information
-        }).then(function() {
-          window.location.href = "/dashboard.html"
-        })
-        ;
-    });
+      console.log('test66666')
+  lock.getUserInfo(authResult.accessToken, function(error, profile) {
+    // Save token and profile locally
+    localStorage.setItem("accessToken", authResult.idToken);
+    localStorage.setItem("profile", JSON.stringify(profile));
 
+    // Update DOM
+  });
+})
     //retrieve the profile:
     //   var retrieve_profile = function() {
     //     var access_token = localStorage.getItem('access_token');

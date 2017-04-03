@@ -1,5 +1,6 @@
 {
   "projects": {
-    "main": "wedj-youtube"
+    "main": "wedj-youtube",
+    "default": "wedj-81dc5"
   }
 }
