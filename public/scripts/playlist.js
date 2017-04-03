@@ -156,7 +156,7 @@ function addLikeHandler(){
       plsl[next].song_order = index +1
       plsl[index].song_order = next + 1
       var count = 0
-      plsl = plsl.map(function(el, ind, arr){
+      plsl =plsl.map(function(el, ind, arr){
         return {id: el.id, s_id: el.s_id, p_id: el.p_id, song_order: el.song_order, likes: el.likes, dislikes: el.dislikes}
       })
       plsl.forEach(function (el, ind, arr){
@@ -186,8 +186,8 @@ function changeTrack(j){
       }
     }
   })
-  setCurrentSong(newarr[0])
-  newarr.forEach(function(e,i,a){
+  setCurrentSong(plsl[0])
+  plsl.forEach(function(e,i,a){
     if (i != 0){
       addSongs(e)
     }
