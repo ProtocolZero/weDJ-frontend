@@ -35,11 +35,11 @@ $(() => {
       const roles = results[2];
       const $collabList = $('.collaborator-list');
       // Display collaborators
-      $collabList.empty()
+      $collabList.remove('.addedli')
       roles.forEach((role) => {
         if (role.role === 'collaborator') {
           const userRole = $('<li>').text(role.u_id).append($('<button class="btn btn-floating red removerole">').val(role.id).append($('<i class="material-icons">').text('remove')));
-          $collabList.prepend(userRole);
+          $collabList.prepend(userRole).addClass('addedli');
         }
       });
       pLength = playlistSongs.length;
