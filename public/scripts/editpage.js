@@ -171,7 +171,7 @@ $(() => {
       $.post(`${path}/song`, playlistItem)
         .then((result) => {
           pLength++;
-          $.post(`${path}/playlist_song`, { p_id: pId, s_id: result[0], song_order: pLength })
+          $.post(`${path}/playlist_song`, { p_id: pId, s_id: result[0].id, song_order: pLength })
             .then((item) => {
             });
         });
