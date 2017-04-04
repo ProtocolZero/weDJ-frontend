@@ -160,7 +160,7 @@ function postSong(song) {
 function postPlaylistSongs(id, index) {
 	const newPlaylistSong = {
 		p_id: pId,
-		s_id: id[0].id,
+		s_id: id[0],
 		song_order: index + 1
 	}
 	console.log('newPlaylistSong: ', newPlaylistSong)
