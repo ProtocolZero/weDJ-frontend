@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
   var lock = new Auth0Lock('31RMIV2OvJCPgnLT3uGZROlu6BiFZBFS', 'tcats.auth0.com', {
   container: 'root',
   auth: {
-    redirect: false,
+    redirect: true,
     redirectUrl: 'http://wedj-youtube.firebaseapp.com/dashboard.html',
     responseType: 'token',
     params: {
