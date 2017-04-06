@@ -5,7 +5,7 @@ window.addEventListener('load', function() {
   container: 'root',
   auth: {
     redirect: true,
-    redirectUrl: 'http://wedj-youtube.firebaseapp.com/dashboard.html',
+    redirectUrl: 'https://wedj-youtube.firebaseapp.com/dashboard.html',
     responseType: 'token',
     params: {
       scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
