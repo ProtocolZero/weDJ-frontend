@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
   var lock = new Auth0Lock('31RMIV2OvJCPgnLT3uGZROlu6BiFZBFS', 'tcats.auth0.com', {
   container: 'root',
   auth: {
-    redirect: true,
+    redirect: false,
     redirectUrl: 'https://wedj-youtube.firebaseapp.com/dashboard.html',
     responseType: 'token',
     params: {
@@ -20,7 +20,7 @@ lock.show();
     // Save token and profile locally
     localStorage.setItem("accessToken", authResult.idToken);
     localStorage.setItem("profile", JSON.stringify(profile));
-
+window.location = 'https://wedj-youtube.firebaseapp.com/dashboard.html'
     // Update DOM
   });
 })
